@@ -86,18 +86,20 @@ export function NavBar({ onCmdK, onAuthOpen }) {
             <span className="cmdk-text">Search…</span>
             <KeyHint keys={['⌘', 'K']} />
           </button>
-          <button
-            onClick={() => onAuthOpen('login')}
-            style={{
-              fontSize: 13, color: 'var(--text-2)', padding: '8px 12px',
-              borderRadius: 8, transition: 'color 180ms ease',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-2)')}
-          >Sign in</button>
-          <Button size="sm" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={13} />}>
-            Open account
-          </Button>
+          <div className="nav-auth-desktop">
+            <button
+              onClick={() => onAuthOpen('login')}
+              style={{
+                fontSize: 13, color: 'var(--text-2)', padding: '8px 12px',
+                borderRadius: 8, transition: 'color 180ms ease',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-2)')}
+            >Sign in</button>
+            <Button size="sm" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={13} />}>
+              Open account
+            </Button>
+          </div>
           <button
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             className="nav-mobile-toggle"
@@ -159,7 +161,7 @@ export function Hero({ onAuthOpen, layout }) {
 
       <div
         ref={ref}
-        className={`container ${visible ? 'reveal visible' : 'reveal'}`}
+        className={`container hero-grid ${visible ? 'reveal visible' : 'reveal'}`}
         style={{
           position: 'relative', display: 'grid',
           gridTemplateColumns: useSplit ? '1.05fr 1fr' : '1fr',
@@ -183,7 +185,7 @@ export function Hero({ onAuthOpen, layout }) {
               WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
             }}>legible.</span>
           </h1>
-          <p style={{
+          <p className="hero-p" style={{
             fontSize: 19, color: 'var(--text-2)', lineHeight: 1.5,
             maxWidth: 560, marginInline: useSplit ? '0' : 'auto',
             marginBottom: 32, textWrap: 'pretty',
@@ -194,7 +196,7 @@ export function Hero({ onAuthOpen, layout }) {
             <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>Open an account</Button>
             <Button size="lg" variant="outline" iconLeft={<Icon.bolt size={14} />}>Watch a 90-second demo</Button>
           </div>
-          <div style={{
+          <div className="hero-stats" style={{
             display: 'inline-flex', flexWrap: 'wrap', gap: 22,
             paddingTop: 20, borderTop: '1px solid var(--line)',
             justifyContent: useSplit ? 'flex-start' : 'center',
@@ -246,7 +248,7 @@ function HeroChart({ chartData }) {
             </Badge>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 6 }}>
+        <div className="hero-chart-periods">
           {['1D','1W','1M','3M','1Y','All'].map((p, i) => (
             <button key={p} style={{
               fontSize: 11, padding: '5px 10px', borderRadius: 7,
@@ -261,7 +263,7 @@ function HeroChart({ chartData }) {
       <div style={{ padding: 12 }}>
         <AreaChart data={chartData} height={280} />
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px solid var(--line)' }}>
+      <div className="hero-chart-footer" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px solid var(--line)' }}>
         {[
           { k: 'NAV',        v: '$' + last.toLocaleString() },
           { k: 'Realized',   v: '+$8,420'   },
@@ -542,7 +544,7 @@ export function Simulator() {
           </Card>
 
           <Card padded={false} elevation={2} style={{ overflow: 'hidden' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderBottom: '1px solid var(--line)' }}>
+            <div className="sim-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderBottom: '1px solid var(--line)' }}>
               {[
                 { k: 'Projected (mid)', v: '$' + last.v.toLocaleString(),    accent: true },
                 { k: 'Lower band',      v: '$' + last.low.toLocaleString()               },
@@ -1163,9 +1165,9 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div style={{ marginTop: 56, paddingTop: 24, borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+        <div className="footer-bottom" style={{ marginTop: 56, paddingTop: 24, borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <span style={{ fontSize: 12, color: 'var(--text-4)' }}>© 2026 Tesla, Inc. All rights reserved.</span>
-          <span style={{ fontSize: 11.5, color: 'var(--text-4)', maxWidth: 700, textAlign: 'right', lineHeight: 1.5 }}>
+          <span className="footer-legal" style={{ fontSize: 11.5, color: 'var(--text-4)', maxWidth: 700, textAlign: 'right', lineHeight: 1.5 }}>
             Securities offered through Tesla Securities LLC, member FINRA/SIPC. Crypto services provided by Tesla Custody LLC. Investing involves risk, including loss of principal.
           </span>
         </div>
