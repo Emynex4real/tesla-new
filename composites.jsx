@@ -1,4 +1,4 @@
-/* Helios Capital — composite components
+/* Tesla — composite components
    Sparkline + AreaChart + LineChart, MarketTicker, Command Palette,
    Logo, NavBar, ProgressMeter, KeyHint */
 
@@ -10,23 +10,23 @@ function Logo({ size = 22, mono = false }) {
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
       <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
         <defs>
-          <linearGradient id="helios-grad" x1="0" x2="1" y1="0" y2="1">
+          <linearGradient id="tesla-grad" x1="0" x2="1" y1="0" y2="1">
             <stop offset="0" stopColor="oklch(0.85 0.14 245)" />
             <stop offset="1" stopColor="oklch(0.55 0.18 245)" />
           </linearGradient>
         </defs>
-        <circle cx="16" cy="16" r="6" fill={mono ? 'currentColor' : 'url(#helios-grad)'} />
+        <circle cx="16" cy="16" r="6" fill={mono ? 'currentColor' : 'url(#tesla-grad)'} />
         {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
           <rect
             key={a} x="15" y="2" width="2" height="5" rx="1"
-            fill={mono ? 'currentColor' : 'url(#helios-grad)'}
+            fill={mono ? 'currentColor' : 'url(#tesla-grad)'}
             transform={`rotate(${a} 16 16)`}
             opacity={0.9}
           />
         ))}
       </svg>
       <span style={{ fontWeight: 600, letterSpacing: '-0.01em', fontSize: 16 }}>
-        Helios <span style={{ color: 'var(--text-3)', fontWeight: 400 }}>Capital</span>
+        Tesla
       </span>
     </span>
   );
@@ -426,7 +426,7 @@ function CommandPalette({ open, onClose }) {
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><KeyHint keys={['↑', '↓']} /> navigate</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><KeyHint keys={['↵']} /> open</span>
           </span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>Powered by Helios <KeyHint keys={['⌘', 'K']} /></span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>Powered by Tesla <KeyHint keys={['⌘', 'K']} /></span>
         </div>
       </div>
     </div>

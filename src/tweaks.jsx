@@ -1,4 +1,4 @@
-/* Helios Capital — tweaks panel */
+/* Tesla — tweaks panel */
 import React from 'react'
 
 const __TWEAKS_STYLE = `

@@ -1,4 +1,4 @@
-/* Helios Capital — app shell */
+/* Tesla — app shell */
 import React from 'react'
 import { useTweaks, TweaksPanel, TweakSection, TweakSlider, TweakRadio } from './tweaks'
 import {

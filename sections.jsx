@@ -1,4 +1,4 @@
-/* Helios Capital — page sections */
+/* Tesla — page sections */
 
 /* ============================================================
    NavBar — sticky, blurred, with ⌘K
@@ -33,7 +33,7 @@ function NavBar({ onCmdK, onAuthOpen }) {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         height: 64,
       }}>
-        <a href="#" aria-label="Helios Capital home" style={{ display: 'inline-flex' }}>
+        <a href="#" aria-label="Tesla home" style={{ display: 'inline-flex' }}>
           <Logo />
         </a>
 
@@ -615,7 +615,7 @@ function Simulator() {
               fontSize: 11, color: 'var(--text-4)', lineHeight: 1.5,
               fontFamily: 'var(--font-mono)',
             }}>
-              Illustrative projection. Returns shown are based on 10-year historical performance of the chosen Helios risk profile, net of 0.10% spot fees. Investments can lose value. Helios Capital is not a fiduciary unless explicitly contracted.
+              Illustrative projection. Returns shown are based on 10-year historical performance of the chosen Tesla risk profile, net of 0.10% spot fees. Investments can lose value. Tesla is not a fiduciary unless explicitly contracted.
             </div>
           </Card>
         </div>
@@ -745,10 +745,10 @@ function Pricing({ onAuthOpen }) {
 }
 
 /* ============================================================
-   Comparison table — Helios vs legacy brokers
+   Comparison table — Tesla vs legacy brokers
    ============================================================ */
 function Compare() {
-  const cols = ['Helios Capital', 'Legacy broker', 'Neobank', 'Crypto-only app'];
+  const cols = ['Tesla', 'Legacy broker', 'Neobank', 'Crypto-only app'];
   const rows = [
     { label: 'Stock commission', vals: ['$0', '$4.95–$9.95', '$0', '—'], heroAccent: true },
     { label: 'Spot crypto (taker)', vals: ['0.20%', 'N/A', '~1.49%', '0.40–0.60%'] },
@@ -763,7 +763,7 @@ function Compare() {
     <section id="compare" style={{ paddingBlock: 'var(--section-pad)', background: 'var(--bg-2)', borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
       <div className="container">
         <SectionHeading
-          eyebrow="Helios vs the rest"
+          eyebrow="Tesla vs the rest"
           title="Compare what your fees actually buy."
           subtitle="An honest line-by-line comparison against a typical legacy broker, neobank, and crypto-only app."
         />
@@ -850,7 +850,7 @@ function DashboardPreview() {
                 <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'oklch(0.78 0.16 80)' }} />
                 <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'oklch(0.78 0.16 155)' }} />
               </div>
-              <span className="mono" style={{ fontSize: 12, color: 'var(--text-3)' }}>app.helios.capital / dashboard</span>
+              <span className="mono" style={{ fontSize: 12, color: 'var(--text-3)' }}>app.tesla.com / dashboard</span>
             </div>
             <Tabs value={tab} onChange={setTab} items={[
               { value: 'overview', label: 'Overview', icon: <Icon.activity size={13} /> },
@@ -1138,9 +1138,9 @@ function Footer() {
           marginTop: 56, paddingTop: 24, borderTop: '1px solid var(--line)',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12,
         }}>
-          <span style={{ fontSize: 12, color: 'var(--text-4)' }}>© 2026 Helios Capital, Inc. All rights reserved.</span>
+          <span style={{ fontSize: 12, color: 'var(--text-4)' }}>© 2026 Tesla, Inc. All rights reserved.</span>
           <span style={{ fontSize: 11.5, color: 'var(--text-4)', maxWidth: 700, textAlign: 'right', lineHeight: 1.5 }}>
-            Securities offered through Helios Securities LLC, member FINRA/SIPC. Crypto services provided by Helios Custody LLC. Investing involves risk, including loss of principal. No representation regarding future performance.
+            Securities offered through Tesla Securities LLC, member FINRA/SIPC. Crypto services provided by Tesla Custody LLC. Investing involves risk, including loss of principal. No representation regarding future performance.
           </span>
         </div>
       </div>

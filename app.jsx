@@ -1,4 +1,4 @@
-/* Helios Capital — app shell */
+/* Tesla — app shell */
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accentHue": 245,

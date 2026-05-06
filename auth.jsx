@@ -1,4 +1,4 @@
-/* Helios Capital — auth flow (multi-step signup with OTP) */
+/* Tesla — auth flow (multi-step signup with OTP) */
 
 function AuthDialog({ open, mode, onClose }) {
   if (!open) return null;
@@ -61,7 +61,7 @@ function LoginFlow({ onClose }) {
     <form onSubmit={submit} style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div>
         <h2 style={{ fontSize: 22, fontWeight: 600, letterSpacing: '-0.02em' }}>Welcome back</h2>
-        <p style={{ fontSize: 13, color: 'var(--text-3)', marginTop: 4 }}>Sign in to your Helios account.</p>
+        <p style={{ fontSize: 13, color: 'var(--text-3)', marginTop: 4 }}>Sign in to your Tesla account.</p>
       </div>
       <Input label="Email" type="email" autoComplete="email" required
         value={email} onChange={(e) => setEmail(e.target.value)}
@@ -207,7 +207,7 @@ function SignupFlow({ onClose }) {
           <div>
             <h2 style={{ fontSize: 22, fontWeight: 600, letterSpacing: '-0.02em' }}>You're in.</h2>
             <p style={{ fontSize: 13.5, color: 'var(--text-3)', marginTop: 6, lineHeight: 1.55 }}>
-              Welcome to Helios, {data.name?.split(' ')[0] || 'trader'}. We've sent your account details to {data.email}.
+              Welcome to Tesla, {data.name?.split(' ')[0] || 'trader'}. We've sent your account details to {data.email}.
             </p>
           </div>
           <Button onClick={onClose} size="lg" iconRight={<Icon.arrow size={14} />}>Go to dashboard</Button>

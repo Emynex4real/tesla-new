@@ -1,4 +1,4 @@
-/* Helios Capital — page sections */
+/* Tesla — page sections */
 import React from 'react'
 import { Button, Card, Badge, Tabs, Slider, SectionHeading, Icon } from './ui'
 import { Logo, KeyHint, Sparkline, AreaChart, Candlestick, MarketTicker } from './composites'
@@ -51,7 +51,7 @@ export function NavBar({ onCmdK, onAuthOpen }) {
       transition: 'background 220ms ease, border-color 220ms ease',
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-        <a href="#" aria-label="Helios Capital home" style={{ display: 'inline-flex' }}>
+        <a href="#" aria-label="Tesla home" style={{ display: 'inline-flex' }}>
           <Logo />
         </a>
 
@@ -558,7 +558,7 @@ export function Simulator() {
               <AreaChart data={data} height={240} />
             </div>
             <div style={{ padding: '12px 20px', borderTop: '1px solid var(--line)', fontSize: 11, color: 'var(--text-4)', lineHeight: 1.5, fontFamily: 'var(--font-mono)' }}>
-              Illustrative projection. Returns shown are based on 10-year historical performance of the chosen Helios risk profile, net of 0.10% spot fees. Investments can lose value.
+              Illustrative projection. Returns shown are based on 10-year historical performance of the chosen Tesla risk profile, net of 0.10% spot fees. Investments can lose value.
             </div>
           </Card>
         </div>
@@ -647,7 +647,7 @@ export function Pricing({ onAuthOpen }) {
 /* ── Compare ──────────────────────────────────────── */
 export function Compare() {
   const [ref, visible] = useReveal()
-  const cols = ['Helios Capital', 'Legacy broker', 'Neobank', 'Crypto-only app']
+  const cols = ['Tesla', 'Legacy broker', 'Neobank', 'Crypto-only app']
   const rows = [
     { label: 'Stock commission',               vals: ['$0',                      '$4.95–$9.95',  '$0',         '—']           },
     { label: 'Spot crypto (taker)',             vals: ['0.20%',                   'N/A',          '~1.49%',     '0.40–0.60%']  },
@@ -662,7 +662,7 @@ export function Compare() {
     <section id="compare" style={{ paddingBlock: 'var(--section-pad)', background: 'var(--bg-2)', borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
       <div className="container">
         <SectionHeading
-          eyebrow="Helios vs the rest"
+          eyebrow="Tesla vs the rest"
           title="Compare what your fees actually buy."
           subtitle="An honest line-by-line comparison against a typical legacy broker, neobank, and crypto-only app."
         />
@@ -734,10 +734,10 @@ export function Docs() {
 
   const quickStart = {
     Python: {
-      install: 'pip install helios-sdk',
-      code: `from helios import Client
+      install: 'pip install tesla-sdk',
+      code: `from tesla import Client
 
-client = Client(api_key="hsk_live_...")
+client = Client(api_key="tsk_live_...")
 
 # Submit a limit order
 order = client.orders.create(
@@ -750,10 +750,10 @@ order = client.orders.create(
 print(order.id)  # → ord_01HG8Xz...`,
     },
     JavaScript: {
-      install: 'npm install @helios/sdk',
-      code: `import { HeliosClient } from '@helios/sdk'
+      install: 'npm install @tesla/sdk',
+      code: `import { TeslaClient } from '@tesla/sdk'
 
-const client = new HeliosClient({ apiKey: 'hsk_live_...' })
+const client = new TeslaClient({ apiKey: 'tsk_live_...' })
 
 // Submit a limit order
 const order = await client.orders.create({
@@ -766,8 +766,8 @@ const order = await client.orders.create({
 console.log(order.id) // → ord_01HG8Xz...`,
     },
     cURL: {
-      code: `curl -X POST https://api.helios.capital/v1/orders \\
-  -H "Authorization: Bearer hsk_live_..." \\
+      code: `curl -X POST https://api.tesla.com/v1/orders \\
+  -H "Authorization: Bearer tsk_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
     "symbol": "BTC-USD",
@@ -807,7 +807,7 @@ console.log(order.id) // → ord_01HG8Xz...`,
       <div className="container">
         <SectionHeading
           eyebrow="Developer docs"
-          title="Build on Helios in minutes."
+          title="Build on Tesla in minutes."
           subtitle="A clean REST API, official SDKs for Python and JavaScript, and FIX 4.4 for latency-sensitive desks. Everything is versioned, documented, and tested against production."
         />
 
@@ -862,7 +862,7 @@ console.log(order.id) // → ord_01HG8Xz...`,
           <Card padded={false} elevation={2} style={{ overflow: 'hidden' }}>
             <div style={{ padding: '16px 22px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: 13, fontWeight: 500 }}>REST API · v1 Endpoints</span>
-              <Badge tone="accent" mono>api.helios.capital</Badge>
+              <Badge tone="accent" mono>api.tesla.com</Badge>
             </div>
             {endpoints.map((ep, i) => (
               <div key={ep.path}
@@ -905,7 +905,7 @@ export function DashboardPreview() {
                   <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'oklch(0.78 0.16 80)' }} />
                   <span style={{ width: 11, height: 11, borderRadius: '50%', background: 'oklch(0.78 0.16 155)'}} />
                 </div>
-                <span className="mono" style={{ fontSize: 12, color: 'var(--text-3)' }}>app.helios.capital / dashboard</span>
+                <span className="mono" style={{ fontSize: 12, color: 'var(--text-3)' }}>app.tesla.com / dashboard</span>
               </div>
               <Tabs value={tab} onChange={setTab} items={[
                 { value: 'overview',   label: 'Overview',   icon: <Icon.activity size={13} /> },
@@ -1164,9 +1164,9 @@ export function Footer() {
           ))}
         </div>
         <div style={{ marginTop: 56, paddingTop: 24, borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-          <span style={{ fontSize: 12, color: 'var(--text-4)' }}>© 2026 Helios Capital, Inc. All rights reserved.</span>
+          <span style={{ fontSize: 12, color: 'var(--text-4)' }}>© 2026 Tesla, Inc. All rights reserved.</span>
           <span style={{ fontSize: 11.5, color: 'var(--text-4)', maxWidth: 700, textAlign: 'right', lineHeight: 1.5 }}>
-            Securities offered through Helios Securities LLC, member FINRA/SIPC. Crypto services provided by Helios Custody LLC. Investing involves risk, including loss of principal.
+            Securities offered through Tesla Securities LLC, member FINRA/SIPC. Crypto services provided by Tesla Custody LLC. Investing involves risk, including loss of principal.
           </span>
         </div>
       </div>

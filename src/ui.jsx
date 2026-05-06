@@ -1,4 +1,4 @@
-/* Helios Capital — UI primitives */
+/* Tesla — UI primitives */
 import React from 'react'
 
 /* ── Button ───────────────────────────────────────── */

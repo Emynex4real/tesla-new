@@ -1,4 +1,4 @@
-/* Helios Capital — UI primitives
+/* Tesla — UI primitives
    Reusable, accessible, production-grade components.
    All components share a single design language driven by tokens.css. */
 
