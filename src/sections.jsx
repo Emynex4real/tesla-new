@@ -1,5 +1,6 @@
 /* Tesla — page sections */
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Button, Card, Badge, Tabs, Slider, SectionHeading, Icon } from './ui'
 import { Logo, KeyHint, Sparkline, AreaChart, Candlestick, MarketTicker } from './composites'
 
@@ -31,12 +32,13 @@ export function NavBar({ onCmdK, onAuthOpen }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const location = useLocation()
   const links = [
-    { label: 'Platform', href: '#platform' },
-    { label: 'Markets',  href: '#markets'  },
-    { label: 'Pricing',  href: '#pricing'  },
-    { label: 'Compare',  href: '#compare'  },
-    { label: 'How it works', href: '#docs' },
+    { label: 'Platform',     href: '/platform'     },
+    { label: 'Markets',      href: '/markets'       },
+    { label: 'Pricing',      href: '/pricing'       },
+    { label: 'Compare',      href: '/compare'       },
+    { label: 'How it works', href: '/how-it-works'  },
   ]
 
   const closeMenu = () => setMobileOpen(false)
@@ -51,21 +53,26 @@ export function NavBar({ onCmdK, onAuthOpen }) {
       transition: 'background 220ms ease, border-color 220ms ease',
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-        <a href="#" aria-label="Tesla home" style={{ display: 'inline-flex' }}>
+        <Link to="/" aria-label="Tesla home" style={{ display: 'inline-flex' }}>
           <Logo />
-        </a>
+        </Link>
 
         <nav aria-label="Primary" className="nav-desktop">
-          {links.map((l) => (
-            <a key={l.label} href={l.href}
-              style={{
-                fontSize: 13, color: 'var(--text-2)', padding: '8px 12px', borderRadius: 8,
-                transition: 'color 180ms ease, background 180ms ease',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text)'; e.currentTarget.style.background = 'var(--surface)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-2)'; e.currentTarget.style.background = 'transparent'; }}
-            >{l.label}</a>
-          ))}
+          {links.map((l) => {
+            const active = location.pathname === l.href
+            return (
+              <Link key={l.label} to={l.href}
+                style={{
+                  fontSize: 13, padding: '8px 12px', borderRadius: 8, display: 'inline-block',
+                  color: active ? 'var(--text)' : 'var(--text-2)',
+                  background: active ? 'var(--surface)' : 'transparent',
+                  transition: 'color 180ms ease, background 180ms ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text)'; e.currentTarget.style.background = 'var(--surface)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = active ? 'var(--text)' : 'var(--text-2)'; e.currentTarget.style.background = active ? 'var(--surface)' : 'transparent'; }}
+              >{l.label}</Link>
+            )
+          })}
         </nav>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -116,10 +123,10 @@ export function NavBar({ onCmdK, onAuthOpen }) {
       {mobileOpen && (
         <div style={{ borderTop: '1px solid var(--line)', padding: '8px 18px 14px', display: 'flex', flexDirection: 'column', gap: 4 }}>
           {links.map((l) => (
-            <a key={l.label} href={l.href} onClick={closeMenu}
-              style={{ padding: '10px 12px', fontSize: 14, color: 'var(--text-2)', borderRadius: 8 }}>
+            <Link key={l.label} to={l.href} onClick={closeMenu}
+              style={{ padding: '10px 12px', fontSize: 14, color: location.pathname === l.href ? 'var(--text)' : 'var(--text-2)', borderRadius: 8, display: 'block' }}>
               {l.label}
-            </a>
+            </Link>
           ))}
           <div style={{ display: 'flex', gap: 8, marginTop: 8, paddingTop: 12, borderTop: '1px solid var(--line)' }}>
             <Button variant="secondary" size="sm" style={{ flex: 1 }} onClick={() => { onAuthOpen('login'); closeMenu() }}>Sign in</Button>
@@ -1147,6 +1154,42 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  )
+}
+
+/* ── PageHero — inner page header ────────────────── */
+export function PageHero({ eyebrow, title, subtitle, cta }) {
+  return (
+    <section style={{ position: 'relative', overflow: 'hidden', paddingBlock: '72px 64px' }}>
+      <div aria-hidden="true" style={{
+        position: 'absolute', top: -180, left: '50%', transform: 'translateX(-50%)',
+        width: 900, height: 500, pointerEvents: 'none',
+        background: 'radial-gradient(closest-side, var(--accent-soft), transparent 70%)',
+        filter: 'blur(40px)', opacity: 0.65,
+      }} />
+      <div className="grid-bg" aria-hidden="true" style={{
+        position: 'absolute', inset: 0, opacity: 0.4,
+        maskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)',
+        WebkitMaskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)',
+      }} />
+      <div className="container" style={{ position: 'relative', textAlign: 'center', maxWidth: 800, marginInline: 'auto' }}>
+        {eyebrow && (
+          <div style={{ marginBottom: 18 }}>
+            <Badge tone="accent">{eyebrow}</Badge>
+          </div>
+        )}
+        <h1 style={{
+          fontSize: 'clamp(32px, 5vw, 60px)', fontWeight: 600, letterSpacing: '-0.03em',
+          lineHeight: 1.06, marginBottom: 18, textWrap: 'balance',
+        }}>{title}</h1>
+        {subtitle && (
+          <p style={{ fontSize: 18, color: 'var(--text-2)', lineHeight: 1.55, maxWidth: 600, marginInline: 'auto', textWrap: 'pretty' }}>
+            {subtitle}
+          </p>
+        )}
+        {cta && <div style={{ marginTop: 28, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>{cta}</div>}
+      </div>
+    </section>
   )
 }
 

@@ -161,6 +161,15 @@ input, textarea, select { font: inherit; color: inherit; }
   .reassure-grid   { grid-template-columns: 1fr !important; }
   .reassure-grid > div { border-right: none !important; border-bottom: 1px solid var(--line); }
   .reassure-grid > div:last-child { border-bottom: none; }
+  /* Page grids */
+  .page-3col       { grid-template-columns: 1fr 1fr !important; }
+  .page-4col       { grid-template-columns: 1fr 1fr !important; }
+  .page-market-live { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 640px) {
+  .page-3col       { grid-template-columns: 1fr !important; }
+  .page-4col       { grid-template-columns: 1fr 1fr !important; }
+  .steps-grid      { grid-template-columns: 1fr !important; }
 }
 
 /* Simulator result: 3-col stats → stack on mobile */

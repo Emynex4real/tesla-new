@@ -1,5 +1,6 @@
 /* Tesla — app shell */
 import React from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useTweaks, TweaksPanel, TweakSection, TweakSlider, TweakRadio } from './tweaks'
 import {
   NavBar, Hero, TrustStrip, Features, Simulator, Pricing,
@@ -7,6 +8,11 @@ import {
 } from './sections'
 import { CommandPalette } from './composites'
 import { AuthDialog } from './auth'
+import PlatformPage   from './pages/PlatformPage'
+import MarketsPage    from './pages/MarketsPage'
+import PricingPage    from './pages/PricingPage'
+import ComparePage    from './pages/ComparePage'
+import HowItWorksPage from './pages/HowItWorksPage'
 
 class ErrorBoundary extends React.Component {
   constructor(props) { super(props); this.state = { error: null } }
@@ -45,6 +51,12 @@ const TWEAK_DEFAULTS = {
   density: 1.0,
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  React.useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
+
 function App() {
   const [cmdOpen, setCmdOpen] = React.useState(false)
   const [auth, setAuth] = React.useState({ open: false, mode: 'signup' })
@@ -78,18 +90,30 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       <NavBar onCmdK={() => setCmdOpen(true)} onAuthOpen={openAuth} />
       <MarketTicker />
       <main>
-        <Hero onAuthOpen={openAuth} layout={t.heroLayout} />
-        <TrustStrip />
-        <Features />
-        <Simulator />
-        <Pricing onAuthOpen={openAuth} />
-        <Compare />
-        <Docs />
-        <DashboardPreview />
-        <CTA onAuthOpen={openAuth} />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero onAuthOpen={openAuth} layout={t.heroLayout} />
+              <TrustStrip />
+              <Features />
+              <Simulator />
+              <Pricing onAuthOpen={openAuth} />
+              <Compare />
+              <Docs />
+              <DashboardPreview />
+              <CTA onAuthOpen={openAuth} />
+            </>
+          } />
+          <Route path="/platform"     element={<PlatformPage   onAuthOpen={openAuth} />} />
+          <Route path="/markets"      element={<MarketsPage    onAuthOpen={openAuth} />} />
+          <Route path="/pricing"      element={<PricingPage    onAuthOpen={openAuth} />} />
+          <Route path="/compare"      element={<ComparePage    onAuthOpen={openAuth} />} />
+          <Route path="/how-it-works" element={<HowItWorksPage onAuthOpen={openAuth} />} />
+        </Routes>
       </main>
       <Footer />
 
@@ -118,7 +142,9 @@ function App() {
 export default function Root() {
   return (
     <ErrorBoundary>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ErrorBoundary>
   )
 }
