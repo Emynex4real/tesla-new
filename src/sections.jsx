@@ -36,7 +36,7 @@ export function NavBar({ onCmdK, onAuthOpen }) {
     { label: 'Markets',  href: '#markets'  },
     { label: 'Pricing',  href: '#pricing'  },
     { label: 'Compare',  href: '#compare'  },
-    { label: 'Docs',     href: '#docs'     },
+    { label: 'How it works', href: '#docs' },
   ]
 
   const closeMenu = () => setMobileOpen(false)
@@ -44,7 +44,7 @@ export function NavBar({ onCmdK, onAuthOpen }) {
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: scrolled ? 'oklch(0.16 0.012 250 / 0.75)' : 'transparent',
+      background: scrolled ? 'oklch(0.14 0.008 38 / 0.82)' : 'transparent',
       backdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
       WebkitBackdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
       borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
@@ -179,18 +179,18 @@ export function Hero({ onAuthOpen, layout }) {
             lineHeight: 1.02, fontWeight: 600, letterSpacing: '-0.035em',
             marginBottom: 20, textWrap: 'balance',
           }}>
-            Markets, made{' '}
+            Invest with{' '}
             <span style={{
               background: 'linear-gradient(120deg, var(--text), var(--accent) 80%)',
               WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
-            }}>legible.</span>
+            }}>conviction.</span>
           </h1>
           <p className="hero-p" style={{
             fontSize: 19, color: 'var(--text-2)', lineHeight: 1.5,
             maxWidth: 560, marginInline: useSplit ? '0' : 'auto',
             marginBottom: 32, textWrap: 'pretty',
           }}>
-            A trading and custody platform for the next decade of investors. Institutional execution, transparent fees, and a workspace that respects your attention.
+            An investment platform built for long-term wealth creation. Institutional-grade portfolios, transparent performance, and a dedicated team that puts your returns first.
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: useSplit ? 'flex-start' : 'center', marginBottom: 32 }}>
             <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>Open an account</Button>
@@ -202,10 +202,10 @@ export function Hero({ onAuthOpen, layout }) {
             justifyContent: useSplit ? 'flex-start' : 'center',
           }}>
             {[
-              { k: '$0',    l: 'Stock commissions' },
-              { k: '0.10%', l: 'Spot maker fee'    },
-              { k: '24/7',  l: 'Concierge'         },
-              { k: '11ms',  l: 'Avg fill latency'  },
+              { k: '$2.4B',  l: 'Assets under custody' },
+              { k: '+18.7%', l: '3-year avg. return'   },
+              { k: '24/7',   l: 'Client concierge'     },
+              { k: '5,200+', l: 'Portfolios active'    },
             ].map((s) => (
               <div key={s.l}>
                 <div className="mono" style={{ fontSize: 18, fontWeight: 600, letterSpacing: '-0.01em' }}>{s.k}</div>
@@ -237,7 +237,7 @@ function HeroChart({ chartData }) {
       }}>
         <div>
           <div style={{ fontSize: 11.5, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.12em', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
-            Portfolio · 90D
+            Total Return · 90D
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
             <span className="mono" style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-0.02em' }}>
@@ -305,8 +305,8 @@ export function Features() {
       <div className="container">
         <SectionHeading
           eyebrow="Platform"
-          title="A complete workspace for serious capital."
-          subtitle="Charts, custody, execution, and analytics — built as one product, not assembled from parts."
+          title="Everything your portfolio needs, in one place."
+          subtitle="Portfolio management, custody, execution, and reporting — built as one product, not assembled from parts."
         />
         <div
           ref={ref}
@@ -579,7 +579,7 @@ export function Pricing({ onAuthOpen }) {
       cta: 'Open account',
     },
     {
-      name: 'Active', tag: 'For frequent traders', price: '$15', sub: '/ month', popular: true,
+      name: 'Active', tag: 'For active investors', price: '$15', sub: '/ month', popular: true,
       features: ['Everything in Standard', '0.10% / 0.20% spot crypto', 'Advanced charting + 120 indicators', 'API access (REST + WebSocket)', 'Priority routing + lower spreads', 'Live chat, 30-minute SLA'],
       cta: 'Start 30-day trial',
     },
@@ -729,154 +729,128 @@ function td(hero) {
   }
 }
 
-/* ── Docs ─────────────────────────────────────────── */
+/* ── How It Works ─────────────────────────────────── */
 export function Docs() {
-  const [lang, setLang]    = React.useState('Python')
-  const [ref, visible]     = useReveal()
+  const [ref, visible] = useReveal()
 
-  const quickStart = {
-    Python: {
-      install: 'pip install tesla-sdk',
-      code: `from tesla import Client
-
-client = Client(api_key="tsk_live_...")
-
-# Submit a limit order
-order = client.orders.create(
-    symbol="BTC-USD",
-    side="buy",
-    type="limit",
-    qty=0.1,
-    limit_price=65_000.00,
-)
-print(order.id)  # → ord_01HG8Xz...`,
+  const steps = [
+    {
+      number: '01',
+      icon: <Icon.user size={22} />,
+      title: 'Open your account',
+      desc: 'Sign up in under 2 minutes. No minimums, no paperwork — just a secure account ready to grow your wealth from day one.',
+      tags: ['Free to open', 'No minimum balance', 'Identity verified securely'],
     },
-    JavaScript: {
-      install: 'npm install @tesla/sdk',
-      code: `import { TeslaClient } from '@tesla/sdk'
-
-const client = new TeslaClient({ apiKey: 'tsk_live_...' })
-
-// Submit a limit order
-const order = await client.orders.create({
-  symbol: 'BTC-USD',
-  side: 'buy',
-  type: 'limit',
-  qty: 0.1,
-  limitPrice: 65_000,
-})
-console.log(order.id) // → ord_01HG8Xz...`,
+    {
+      number: '02',
+      icon: <Icon.plus size={22} />,
+      title: 'Add your funds',
+      desc: 'Transfer from your bank account with a few taps. Your money is protected and insured the moment it arrives.',
+      tags: ['Bank transfer', 'No transfer fees', 'Same-day processing'],
     },
-    cURL: {
-      code: `curl -X POST https://api.tesla.com/v1/orders \\
-  -H "Authorization: Bearer tsk_live_..." \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "symbol": "BTC-USD",
-    "side": "buy",
-    "type": "limit",
-    "qty": 0.1,
-    "limit_price": 65000
-  }'`,
+    {
+      number: '03',
+      icon: <Icon.layers size={22} />,
+      title: 'Pick your strategy',
+      desc: 'Choose a managed portfolio that matches your goals — Conservative, Balanced, or Growth — or select your own assets.',
+      tags: ['Expert-managed options', 'Stocks & crypto', 'Adjust any time'],
     },
-  }
-
-  const methodColor = { GET: 'accent', POST: 'positive', PATCH: 'warn', DELETE: 'negative' }
-  const endpoints = [
-    { method: 'GET',    path: '/v1/markets',         desc: 'List all supported markets and trading pairs' },
-    { method: 'GET',    path: '/v1/quotes/{symbol}', desc: 'Real-time NBBO quote with full depth-of-book' },
-    { method: 'POST',   path: '/v1/orders',          desc: 'Submit a new order (market, limit, stop-limit, bracket)' },
-    { method: 'PATCH',  path: '/v1/orders/{id}',     desc: 'Modify the price or quantity of an open order' },
-    { method: 'DELETE', path: '/v1/orders/{id}',     desc: 'Cancel an open order by ID' },
-    { method: 'GET',    path: '/v1/portfolio',       desc: 'Positions, realized P&L, and cash balances' },
-    { method: 'GET',    path: '/v1/history',         desc: 'Paginated trade history with filtering + cursor' },
-    { method: 'POST',   path: '/v1/webhooks',        desc: 'Register a signed HMAC-SHA256 webhook endpoint' },
+    {
+      number: '04',
+      icon: <Icon.activity size={22} />,
+      title: 'Watch your wealth grow',
+      desc: 'Track your portfolio performance in plain language. No confusing jargon — just clear numbers and honest reporting.',
+      tags: ['Daily performance updates', 'Plain-English reports', 'Tax documents included'],
+    },
   ]
 
-  const apiFeatures = [
-    { icon: <Icon.lock size={16} />,     title: 'API key auth',        desc: 'Bearer token authentication with separate read-only and trading scopes. Rotate without downtime.' },
-    { icon: <Icon.activity size={16} />, title: 'WebSocket streams',   desc: 'Subscribe to quotes, order-book depth, trade tape, and account events with sub-5ms delivery.' },
-    { icon: <Icon.shield size={16} />,   title: 'Signed webhooks',     desc: 'All event payloads are HMAC-SHA256 signed. Verify in one line — no third-party dependency needed.' },
-    { icon: <Icon.cpu size={16} />,      title: 'FIX 4.4 gateway',     desc: 'Sub-12ms access for algorithmic strategies and institutions that require FIX protocol.' },
-    { icon: <Icon.zap size={16} />,      title: 'Rate limits',         desc: '1,200 REST req / min on Active and Elite. WebSocket: unlimited. FIX: session-level.' },
-    { icon: <Icon.book size={16} />,     title: 'Idempotent orders',   desc: 'All POST /orders accepts an idempotency key — re-submit safely after any network failure.' },
+  const reassurances = [
+    {
+      icon: <Icon.shieldCheck size={20} />,
+      title: 'Your money is always protected',
+      desc: 'Cash balances are insured up to $500,000. Digital assets are held in cold storage with $250M crime coverage.',
+    },
+    {
+      icon: <Icon.lock size={20} />,
+      title: 'Bank-grade security',
+      desc: 'SOC 2 Type II certified. Two-factor login, 256-bit encryption, and around-the-clock fraud monitoring.',
+    },
+    {
+      icon: <Icon.scale size={20} />,
+      title: 'Fully regulated and transparent',
+      desc: 'Registered with FINRA and SIPC. No hidden fees, no surprises — your money is always accounted for.',
+    },
   ]
-
-  const sdk = quickStart[lang]
 
   return (
     <section id="docs" style={{ paddingBlock: 'var(--section-pad)' }}>
       <div className="container">
         <SectionHeading
-          eyebrow="Developer docs"
-          title="Build on Tesla in minutes."
-          subtitle="A clean REST API, official SDKs for Python and JavaScript, and FIX 4.4 for latency-sensitive desks. Everything is versioned, documented, and tested against production."
+          eyebrow="How it works"
+          title="Investing made simple."
+          subtitle="You don't need to be a financial expert. Tesla handles the complexity so you can focus on what matters — growing your wealth."
         />
 
         <div ref={ref} className={visible ? 'reveal visible' : 'reveal'}>
-          {/* quick-start + feature list */}
-          <div className="docs-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
-            {/* code panel */}
-            <Card padded={false} elevation={2} style={{ overflow: 'hidden' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderBottom: '1px solid var(--line)' }}>
-                <span style={{ fontSize: 13, fontWeight: 500 }}>Quick start</span>
-                <Tabs
-                  value={lang}
-                  onChange={setLang}
-                  items={['Python','JavaScript','cURL'].map((l) => ({ value: l, label: l }))}
-                />
-              </div>
-              {sdk.install && (
-                <div style={{ padding: '10px 18px', background: 'var(--bg-2)', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 10, color: 'var(--text-4)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Install</span>
-                  <code className="mono" style={{ fontSize: 12.5, color: 'var(--text-2)' }}>{sdk.install}</code>
-                </div>
-              )}
-              <pre style={{
-                margin: 0, padding: 20,
-                fontFamily: 'var(--font-mono)', fontSize: 12.5,
-                color: 'var(--text-2)', lineHeight: 1.7,
-                background: 'var(--bg-2)',
-                overflowX: 'auto', tabSize: 2,
-                minHeight: 240,
-              }}>{sdk.code}</pre>
-            </Card>
-
-            {/* feature list */}
-            <Card padded elevation={1}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                {apiFeatures.map((f, i) => (
-                  <div key={f.title} style={{ display: 'flex', gap: 14, paddingBottom: i < apiFeatures.length - 1 ? 18 : 0, borderBottom: i < apiFeatures.length - 1 ? '1px solid var(--line)' : 'none' }}>
-                    <span style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--accent-soft)', color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      {f.icon}
-                    </span>
-                    <div>
-                      <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 4 }}>{f.title}</div>
-                      <div style={{ fontSize: 13, color: 'var(--text-3)', lineHeight: 1.5 }}>{f.desc}</div>
-                    </div>
+          {/* Steps */}
+          <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 24 }}>
+            {steps.map((s, i) => (
+              <Card key={s.number} padded interactive style={{ position: 'relative', overflow: 'hidden' }}>
+                <div aria-hidden="true" style={{
+                  position: 'absolute', top: 12, right: 16,
+                  fontSize: 52, fontWeight: 700, letterSpacing: '-0.04em',
+                  color: 'var(--accent)', opacity: 0.07, lineHeight: 1,
+                  fontFamily: 'var(--font-display)',
+                }}>{s.number}</div>
+                <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', height: '100%', gap: 16 }}>
+                  <div style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    width: 44, height: 44, borderRadius: 12,
+                    background: 'var(--accent-soft)', color: 'var(--accent)',
+                    flexShrink: 0,
+                  }}>{s.icon}</div>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ fontSize: 17, fontWeight: 600, marginBottom: 10 }}>{s.title}</h3>
+                    <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.6 }}>{s.desc}</p>
                   </div>
-                ))}
-              </div>
-            </Card>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
+                    {s.tags.map((tag) => (
+                      <div key={tag} style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 12, color: 'var(--text-3)' }}>
+                        <span style={{ color: 'var(--accent)', flexShrink: 0 }}><Icon.check size={12} /></span>
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                  {i < steps.length - 1 && (
+                    <div aria-hidden="true" style={{
+                      position: 'absolute', right: -10, top: '50%', transform: 'translateY(-50%)',
+                      color: 'var(--text-4)', zIndex: 2,
+                    }}>
+                      <Icon.arrow size={16} />
+                    </div>
+                  )}
+                </div>
+              </Card>
+            ))}
           </div>
 
-          {/* endpoints table */}
-          <Card padded={false} elevation={2} style={{ overflow: 'hidden' }}>
-            <div style={{ padding: '16px 22px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: 13, fontWeight: 500 }}>REST API · v1 Endpoints</span>
-              <Badge tone="accent" mono>api.tesla.com</Badge>
-            </div>
-            {endpoints.map((ep, i) => (
-              <div key={ep.path}
-                style={{ display: 'flex', alignItems: 'flex-start', gap: 16, padding: '14px 22px', borderBottom: i < endpoints.length - 1 ? '1px solid var(--line)' : 'none', transition: 'background 140ms ease' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--surface-2)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-              >
-                <Badge tone={methodColor[ep.method]} mono style={{ flexShrink: 0, minWidth: 60, justifyContent: 'center' }}>
-                  {ep.method}
-                </Badge>
-                <code className="mono" style={{ fontSize: 13, color: 'var(--text)', flex: '0 0 240px' }}>{ep.path}</code>
-                <span style={{ fontSize: 13, color: 'var(--text-3)' }}>{ep.desc}</span>
+          {/* Reassurance strip */}
+          <Card padded={false} elevation={1} className="reassure-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+            {reassurances.map((r, i) => (
+              <div key={r.title} style={{
+                padding: '28px 28px',
+                borderRight: i < reassurances.length - 1 ? '1px solid var(--line)' : 'none',
+                display: 'flex', gap: 16, alignItems: 'flex-start',
+              }}>
+                <span style={{
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  width: 40, height: 40, borderRadius: 10,
+                  background: 'var(--accent-soft)', color: 'var(--accent)', flexShrink: 0,
+                }}>{r.icon}</span>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>{r.title}</div>
+                  <p style={{ fontSize: 13, color: 'var(--text-3)', lineHeight: 1.6 }}>{r.desc}</p>
+                </div>
               </div>
             ))}
           </Card>
@@ -895,8 +869,8 @@ export function DashboardPreview() {
       <div className="container">
         <SectionHeading
           eyebrow="The workspace"
-          title="Less chrome. More signal."
-          subtitle="A trading workspace built like a tool — keyboard-first, dense where it counts, quiet everywhere else."
+          title="Your wealth, clearly in view."
+          subtitle="An investment workspace designed around clarity — see what matters, act with confidence, and stay in control."
         />
         <div ref={ref} className={visible ? 'reveal visible' : 'reveal'}>
           <Card padded={false} elevation={3} style={{ overflow: 'hidden' }}>
@@ -1111,10 +1085,10 @@ export function CTA({ onAuthOpen }) {
           }} />
           <div ref={ref} className={`${visible ? 'reveal visible' : 'reveal'}`} style={{ position: 'relative' }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 600, letterSpacing: '-0.025em', marginBottom: 14, textWrap: 'balance' }}>
-              Open an account in 90 seconds.
+              Start building wealth today.
             </h2>
             <p style={{ fontSize: 17, color: 'var(--text-2)', marginBottom: 28, maxWidth: 540, marginInline: 'auto' }}>
-              No minimums. SOC 2 Type II infrastructure. Move funds in or out without leaving the app.
+              No minimums. Institutional-grade custody. Your portfolio, fully protected from day one.
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>Open an account</Button>
@@ -1142,7 +1116,7 @@ export function Footer() {
           <div>
             <Logo />
             <p style={{ fontSize: 13, color: 'var(--text-3)', marginTop: 14, lineHeight: 1.55, maxWidth: 280 }}>
-              A trading and custody platform for the next decade of investors. Light into markets.
+              An investment platform built for long-term wealth creation. Trusted by 5,200+ portfolios worldwide.
             </p>
             <div style={{ display: 'flex', gap: 8, marginTop: 18 }}>
               <Badge tone="default" mono>SOC 2 Type II</Badge>

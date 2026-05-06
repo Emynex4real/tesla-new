@@ -38,7 +38,7 @@ class ErrorBoundary extends React.Component {
 }
 
 const TWEAK_DEFAULTS = {
-  accentHue: 245,
+  accentHue: 52,
   glow: 0.35,
   radius: 12,
   heroLayout: 'split',

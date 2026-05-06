@@ -1,26 +1,26 @@
 /* Tesla — design tokens */
 
 :root {
-  /* Surfaces (soft-dark) */
-  --bg:        oklch(0.16 0.012 250);
-  --bg-2:      oklch(0.13 0.012 250);
-  --surface:   oklch(0.20 0.014 250);
-  --surface-2: oklch(0.24 0.016 250);
-  --line:      oklch(0.30 0.014 250 / 0.55);
-  --line-2:    oklch(0.36 0.018 250 / 0.45);
+  /* Surfaces (warm-dark) */
+  --bg:        oklch(0.14 0.008 38);
+  --bg-2:      oklch(0.11 0.008 38);
+  --surface:   oklch(0.19 0.010 38);
+  --surface-2: oklch(0.23 0.012 38);
+  --line:      oklch(0.30 0.010 38 / 0.55);
+  --line-2:    oklch(0.36 0.012 38 / 0.45);
 
   /* Text */
-  --text:    oklch(0.97 0.005 250);
-  --text-2:  oklch(0.78 0.014 250);
-  --text-3:  oklch(0.62 0.018 250);
-  --text-4:  oklch(0.48 0.018 250);
+  --text:    oklch(0.97 0.004 52);
+  --text-2:  oklch(0.77 0.012 52);
+  --text-3:  oklch(0.61 0.014 52);
+  --text-4:  oklch(0.47 0.014 52);
 
-  /* Accent (electric blue, single role at a time) */
-  --accent-h: 245;
-  --accent:   oklch(0.72 0.16 var(--accent-h));
-  --accent-2: oklch(0.62 0.18 var(--accent-h));
-  --accent-soft: oklch(0.72 0.16 var(--accent-h) / 0.14);
-  --accent-line: oklch(0.72 0.16 var(--accent-h) / 0.32);
+  /* Accent (gold, single role at a time) */
+  --accent-h: 52;
+  --accent:   oklch(0.78 0.15 var(--accent-h));
+  --accent-2: oklch(0.68 0.17 var(--accent-h));
+  --accent-soft: oklch(0.78 0.15 var(--accent-h) / 0.14);
+  --accent-line: oklch(0.78 0.15 var(--accent-h) / 0.32);
 
   /* Semantic */
   --pos: oklch(0.78 0.16 155);
@@ -157,6 +157,10 @@ input, textarea, select { font: inherit; color: inherit; }
   .sim-grid        { grid-template-columns: 1fr !important; }
   .pricing-grid    { grid-template-columns: 1fr !important; }
   .docs-grid       { grid-template-columns: 1fr !important; }
+  .steps-grid      { grid-template-columns: 1fr 1fr !important; }
+  .reassure-grid   { grid-template-columns: 1fr !important; }
+  .reassure-grid > div { border-right: none !important; border-bottom: 1px solid var(--line); }
+  .reassure-grid > div:last-child { border-bottom: none; }
 }
 
 /* Simulator result: 3-col stats → stack on mobile */
