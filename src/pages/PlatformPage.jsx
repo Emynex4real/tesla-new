@@ -71,7 +71,7 @@ export default function PlatformPage({ onAuthOpen }) {
             title="Wherever you are on your wealth journey."
             subtitle="Tesla grows with you — from your first $100 to a seven-figure institutional portfolio."
           />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {investors.map((inv) => (
               <Card key={inv.title} padded interactive>
                 <div style={{
@@ -106,7 +106,7 @@ export default function PlatformPage({ onAuthOpen }) {
             title="Your wealth is protected at every layer."
             subtitle="We use the same infrastructure as the world's largest financial institutions — so you never have to worry."
           />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {security.map((s) => (
               <Card key={s.title} padded>
                 <div style={{

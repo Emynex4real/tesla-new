@@ -96,7 +96,7 @@ export default function MarketsPage({ onAuthOpen }) {
             title="Invest in what you believe in."
             subtitle="Six asset classes. One account. No switching between apps or brokers."
           />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {assetClasses.map((a) => (
               <Card key={a.name} padded interactive>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
@@ -132,7 +132,7 @@ export default function MarketsPage({ onAuthOpen }) {
             title="Real-time data, always."
             subtitle="See market-moving prices the moment they happen — with full depth-of-book and professional charting tools."
           />
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'start' }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
             <Card padded={false} elevation={2} style={{ overflow: 'hidden' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--line)' }}>
                 <div>
@@ -194,7 +194,7 @@ export default function MarketsPage({ onAuthOpen }) {
             title="Markets around the world."
             subtitle="Connected to major exchanges across North America, Europe, and Asia-Pacific."
           />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {exchanges.map((ex) => (
               <Card key={ex.code} padded interactive>
                 <div className="mono" style={{ fontSize: 16, fontWeight: 600, marginBottom: 6, color: 'var(--accent)' }}>{ex.code}</div>

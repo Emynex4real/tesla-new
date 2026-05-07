@@ -1,5 +1,6 @@
 /* Tesla — auth flows */
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button, Input, Icon } from './ui'
 import { Logo } from './composites'
 
@@ -52,6 +53,7 @@ export function AuthDialog({ open, mode, onClose }) {
 }
 
 function LoginFlow({ onClose }) {
+  const navigate = useNavigate()
   const [email, setEmail]       = React.useState('')
   const [password, setPassword] = React.useState('')
   const [loading, setLoading]   = React.useState(false)
@@ -63,7 +65,7 @@ function LoginFlow({ onClose }) {
     if (!email.includes('@'))  { setError('Enter a valid email address'); return }
     if (password.length < 4)   { setError('Password must be at least 4 characters'); return }
     setLoading(true)
-    setTimeout(() => { setLoading(false); onClose() }, 1100)
+    setTimeout(() => { setLoading(false); onClose(); navigate('/dashboard') }, 1100)
   }
 
   return (
@@ -102,6 +104,19 @@ function LoginFlow({ onClose }) {
         <Button variant="ghost" size="sm">Forgot password?</Button>
       </div>
     </form>
+  )
+}
+
+function GoToDashboardBtn({ onClose }) {
+  const navigate = useNavigate()
+  return (
+    <Button
+      size="lg"
+      iconRight={<Icon.arrow size={14} />}
+      onClick={() => { onClose(); navigate('/dashboard') }}
+    >
+      Go to dashboard
+    </Button>
   )
 }
 
@@ -239,7 +254,7 @@ function SignupFlow({ onClose }) {
               Welcome to Tesla, {data.name?.split(' ')[0] || 'trader'}. We've sent your account details to {data.email}.
             </p>
           </div>
-          <Button onClick={onClose} size="lg" iconRight={<Icon.arrow size={14} />}>Go to dashboard</Button>
+          <GoToDashboardBtn onClose={onClose} />
         </div>
       )}
     </div>

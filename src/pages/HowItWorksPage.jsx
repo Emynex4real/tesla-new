@@ -105,7 +105,7 @@ export default function HowItWorksPage({ onAuthOpen }) {
             title="Support every step of the way."
             subtitle="From your first deposit to your first million, our team is always available."
           />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {support.map((s) => (
               <Card key={s.title} padded interactive>
                 <div style={{

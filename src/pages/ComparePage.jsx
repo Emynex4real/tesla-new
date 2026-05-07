@@ -53,7 +53,7 @@ export default function ComparePage({ onAuthOpen }) {
           />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {advantages.map((a, i) => (
-              <Card key={a.title} padded interactive style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 32, alignItems: 'center' }}>
+              <Card key={a.title} padded interactive className="flex flex-col gap-6 sm:grid sm:gap-8 sm:items-center" style={{ gridTemplateColumns: '1fr auto' }}>
                 <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
                   <div style={{
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -67,7 +67,7 @@ export default function ComparePage({ onAuthOpen }) {
                     <p style={{ fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7, maxWidth: 680 }}>{a.desc}</p>
                   </div>
                 </div>
-                <div style={{ textAlign: 'center', paddingLeft: 32, borderLeft: '1px solid var(--line)', minWidth: 120 }}>
+                <div className="text-center border-t pt-4 sm:border-t-0 sm:pt-0 sm:pl-8 sm:border-l [border-color:var(--line)]" style={{ minWidth: 120 }}>
                   <div className="mono" style={{ fontSize: 28, fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.02em' }}>{a.stat}</div>
                   <div style={{ fontSize: 11, color: 'var(--text-4)', marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{a.statLabel}</div>
                 </div>
@@ -85,7 +85,7 @@ export default function ComparePage({ onAuthOpen }) {
             subtitle="Real numbers from real investors who moved to Tesla."
             align="center"
           />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {whySwitch.map((w) => (
               <Card key={w.label} padded style={{ textAlign: 'center' }}>
                 <div className="mono" style={{ fontSize: 40, fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.03em', marginBottom: 8 }}>{w.value}</div>

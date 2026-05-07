@@ -13,6 +13,7 @@ import MarketsPage    from './pages/MarketsPage'
 import PricingPage    from './pages/PricingPage'
 import ComparePage    from './pages/ComparePage'
 import HowItWorksPage from './pages/HowItWorksPage'
+import Dashboard      from './pages/dashboard/Dashboard'
 
 class ErrorBoundary extends React.Component {
   constructor(props) { super(props); this.state = { error: null } }
@@ -32,7 +33,7 @@ class ErrorBoundary extends React.Component {
           onClick={() => this.setState({ error: null })}
           style={{
             padding: '10px 20px', borderRadius: 8, background: 'var(--accent)',
-            color: '#fff', fontWeight: 500, fontSize: 14, marginTop: 8,
+            color: 'var(--bg)', fontWeight: 500, fontSize: 14, marginTop: 8,
           }}
         >
           Try again
@@ -61,6 +62,9 @@ function App() {
   const [cmdOpen, setCmdOpen] = React.useState(false)
   const [auth, setAuth] = React.useState({ open: false, mode: 'signup' })
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS)
+  const location = useLocation()
+
+  const isDashboard = location.pathname.startsWith('/dashboard')
 
   React.useEffect(() => {
     const r = document.documentElement
@@ -91,50 +95,56 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <NavBar onCmdK={() => setCmdOpen(true)} onAuthOpen={openAuth} />
-      <MarketTicker />
-      <main>
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero onAuthOpen={openAuth} layout={t.heroLayout} />
-              <TrustStrip />
-              <Features />
-              <Simulator />
-              <Pricing onAuthOpen={openAuth} />
-              <Compare />
-              <Docs />
-              <DashboardPreview />
-              <CTA onAuthOpen={openAuth} />
-            </>
-          } />
-          <Route path="/platform"     element={<PlatformPage   onAuthOpen={openAuth} />} />
-          <Route path="/markets"      element={<MarketsPage    onAuthOpen={openAuth} />} />
-          <Route path="/pricing"      element={<PricingPage    onAuthOpen={openAuth} />} />
-          <Route path="/compare"      element={<ComparePage    onAuthOpen={openAuth} />} />
-          <Route path="/how-it-works" element={<HowItWorksPage onAuthOpen={openAuth} />} />
-        </Routes>
-      </main>
-      <Footer />
 
-      <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
-      <AuthDialog open={auth.open} mode={auth.mode} onClose={closeAuth} />
+      {!isDashboard && <NavBar onCmdK={() => setCmdOpen(true)} onAuthOpen={openAuth} />}
+      {!isDashboard && <MarketTicker />}
 
-      <TweaksPanel>
-        <TweakSection label="Brand" />
-        <TweakSlider label="Accent hue" value={t.accentHue} min={0} max={360} step={1}
-          unit="°" onChange={(v) => setTweak('accentHue', v)} />
-        <TweakSlider label="Glow" value={t.glow} min={0} max={1} step={0.05}
-          onChange={(v) => setTweak('glow', v)} />
-        <TweakSlider label="Radius" value={t.radius} min={0} max={24} step={1}
-          unit="px" onChange={(v) => setTweak('radius', v)} />
-        <TweakSection label="Layout" />
-        <TweakRadio label="Hero" value={t.heroLayout}
-          options={['split', 'centered']}
-          onChange={(v) => setTweak('heroLayout', v)} />
-        <TweakSlider label="Density" value={t.density} min={0.7} max={1.3} step={0.05}
-          onChange={(v) => setTweak('density', v)} />
-      </TweaksPanel>
+      <Routes>
+        <Route path="/" element={
+          <main>
+            <Hero onAuthOpen={openAuth} layout={t.heroLayout} />
+            <TrustStrip />
+            <Features />
+            <Simulator />
+            <Pricing onAuthOpen={openAuth} />
+            <Compare />
+            <Docs />
+            <DashboardPreview />
+            <CTA onAuthOpen={openAuth} />
+          </main>
+        } />
+        <Route path="/platform"     element={<PlatformPage   onAuthOpen={openAuth} />} />
+        <Route path="/markets"      element={<MarketsPage    onAuthOpen={openAuth} />} />
+        <Route path="/pricing"      element={<PricingPage    onAuthOpen={openAuth} />} />
+        <Route path="/compare"      element={<ComparePage    onAuthOpen={openAuth} />} />
+        <Route path="/how-it-works" element={<HowItWorksPage onAuthOpen={openAuth} />} />
+        <Route path="/dashboard"    element={<Dashboard />} />
+      </Routes>
+
+      {!isDashboard && <Footer />}
+
+      {!isDashboard && (
+        <>
+          <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
+          <AuthDialog open={auth.open} mode={auth.mode} onClose={closeAuth} />
+
+          <TweaksPanel>
+            <TweakSection label="Brand" />
+            <TweakSlider label="Accent hue" value={t.accentHue} min={0} max={360} step={1}
+              unit="°" onChange={(v) => setTweak('accentHue', v)} />
+            <TweakSlider label="Glow" value={t.glow} min={0} max={1} step={0.05}
+              onChange={(v) => setTweak('glow', v)} />
+            <TweakSlider label="Radius" value={t.radius} min={0} max={24} step={1}
+              unit="px" onChange={(v) => setTweak('radius', v)} />
+            <TweakSection label="Layout" />
+            <TweakRadio label="Hero" value={t.heroLayout}
+              options={['split', 'centered']}
+              onChange={(v) => setTweak('heroLayout', v)} />
+            <TweakSlider label="Density" value={t.density} min={0.7} max={1.3} step={0.05}
+              onChange={(v) => setTweak('density', v)} />
+          </TweaksPanel>
+        </>
+      )}
     </>
   )
 }
