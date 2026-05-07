@@ -139,12 +139,48 @@ input, textarea, select { font: inherit; color: inherit; }
   .nav-auth-desktop  { display: contents; }
 }
 
-/* ── Responsive — Hero ─────────────────────────────── */
-@media (max-width: 640px) {
-  .hero-stats-bar { grid-template-columns: 1fr 1fr !important; }
-  .hero-stats-bar > div { border-right: none !important; border-bottom: 1px solid var(--line); }
-  .hero-stats-bar > div:nth-child(odd)       { border-right: 1px solid var(--line) !important; }
-  .hero-stats-bar > div:nth-last-child(-n+2) { border-bottom: none; }
+/* ── Responsive — Hero stats bar ───────────────────── */
+/* Desktop: dividers between all 4 cells via box-shadow so we avoid
+   border-right on the last cell without extra markup */
+.hero-stat-cell {
+  border-right: 1px solid oklch(1 0 0 / 0.10);
+}
+.hero-stat-cell:last-child {
+  border-right: none;
+}
+
+/* Mobile: collapse to 2×2 */
+@media (max-width: 600px) {
+  .hero-stats-bar {
+    grid-template-columns: 1fr 1fr !important;
+    padding: 8px 0 !important;
+  }
+  /* Reset all borders, then re-apply a grid pattern */
+  .hero-stat-cell {
+    border-right: none;
+    border-bottom: 1px solid oklch(1 0 0 / 0.10);
+    padding: 14px 12px !important;
+  }
+  /* Right column: add divider between left and right */
+  .hero-stat-cell:nth-child(odd) {
+    border-right: 1px solid oklch(1 0 0 / 0.10);
+  }
+  /* Last two cells: remove bottom border */
+  .hero-stat-cell:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+}
+
+/* Hero content area — mobile */
+@media (max-width: 600px) {
+  .hero-cta-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .hero-cta-row > * {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }
 
 /* ── Responsive — Sections ─────────────────────────── */

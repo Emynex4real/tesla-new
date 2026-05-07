@@ -52,12 +52,8 @@ export function NavBar({ onCmdK, onAuthOpen }) {
       borderBottom: '1px solid var(--line)',
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-        <Link to="/" aria-label="Tesla home" style={{
-          display: 'inline-flex', alignItems: 'center',
-          fontSize: 20, fontWeight: 700, letterSpacing: '0.28em',
-          color: 'var(--text)', textTransform: 'uppercase',
-        }}>
-          TESLA
+        <Link to="/" aria-label="Tesla home" style={{ display: 'inline-flex', alignItems: 'center' }}>
+          <img src="/logo.png" alt="Tesla" style={{ height: 28, width: 'auto', display: 'block' }} />
         </Link>
 
         <nav aria-label="Primary" className="nav-desktop">
@@ -208,7 +204,7 @@ export function Hero({ onAuthOpen }) {
           Join the world's most advanced financial ecosystem. Secure, automated, and powered by AI-driven market analysis.
         </p>
 
-        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div className="hero-cta-row" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>
             Open Free Account
           </Button>
@@ -223,25 +219,24 @@ export function Hero({ onAuthOpen }) {
         position: 'relative', zIndex: 10,
         width: '100%', maxWidth: 1240,
         margin: '0 auto',
-        padding: '0 28px 80px',
+        padding: '0 18px 60px',
       }}>
-        <div className={visible ? 'reveal visible' : 'reveal'} style={{
+        <div className={`hero-stats-bar ${visible ? 'reveal visible' : 'reveal'}`} style={{
           display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
           background: 'oklch(0.14 0.008 145 / 0.50)',
           backdropFilter: 'blur(24px) saturate(180%)',
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
           borderRadius: 'var(--radius-lg)',
           border: '1px solid oklch(1 0 0 / 0.10)',
-          padding: '28px 0',
+          padding: '20px 0',
         }}>
           {stats.map((s, i) => (
-            <div key={s.label} style={{
+            <div key={s.label} className="hero-stat-cell" style={{
               textAlign: 'center',
-              borderRight: i < stats.length - 1 ? '1px solid var(--line)' : 'none',
-              padding: '0 20px',
+              padding: '10px 16px',
             }}>
-              <div className="mono" style={{ fontSize: 28, fontWeight: 700, letterSpacing: '-0.03em', color: 'var(--text)' }}>{s.value}</div>
-              <div style={{ fontSize: 13, color: 'var(--text-3)', marginTop: 5 }}>{s.label}</div>
+              <div className="mono" style={{ fontSize: 'clamp(20px, 5vw, 28px)', fontWeight: 700, letterSpacing: '-0.03em', color: 'var(--text)' }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-3)', marginTop: 4 }}>{s.label}</div>
             </div>
           ))}
         </div>
