@@ -6,17 +6,17 @@ import { SectionHeading, Button, Card, Icon, Badge } from '../ui'
 const advantages = [
   {
     icon: <Icon.scale size={24} />,
-    title: 'No payment for order flow — ever',
-    desc: 'Most brokers sell your trades to market makers in exchange for payments. This quietly results in worse prices on every trade. Tesla routes all orders directly to exchanges for best execution. Your interests come first, not a third party\'s.',
-    stat: '$0',
-    statLabel: 'PFOF revenue',
+    title: 'Fully transparent fee structure',
+    desc: 'Most investment firms bury fees inside fund structures, performance cuts, and management layers. We charge a single, clearly stated advisory fee. No performance penalties, no hidden layers, no surprises on your statement.',
+    stat: '0%',
+    statLabel: 'Hidden charges',
   },
   {
     icon: <Icon.shieldCheck size={24} />,
     title: 'Institutional-grade custody',
-    desc: 'Your digital assets are held in multi-signature cold storage vaults — the same standard used by sovereign wealth funds and large family offices. 95% of assets offline at all times, with $250M crime insurance covering the remainder.',
-    stat: '$250M',
-    statLabel: 'Crime insurance',
+    desc: 'Client investments are held in fully segregated accounts at tier-1 custodian banks — the same standard used by sovereign wealth funds and large family offices. SIPC-insured up to $500,000 with independent third-party audits.',
+    stat: '$500K',
+    statLabel: 'SIPC insured',
   },
   {
     icon: <Icon.user size={24} />,

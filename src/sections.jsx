@@ -307,6 +307,38 @@ export function TrustStrip() {
 /* ── Features (bento grid) ────────────────────────── */
 export function Features() {
   const [ref, visible] = useReveal()
+
+  const imageCards = [
+    {
+      img: '/feature-1.avif',
+      bg: 'linear-gradient(135deg, oklch(0.22 0.06 200) 0%, oklch(0.14 0.04 220) 100%)',
+      icon: <Icon.shieldCheck size={18} />,
+      title: 'Institutional Custody',
+      desc: 'Client funds held in fully segregated accounts at tier-1 custodian banks. SIPC-insured up to $500,000.',
+    },
+    {
+      img: '/feature-2.avif',
+      bg: 'linear-gradient(135deg, oklch(0.22 0.06 160) 0%, oklch(0.14 0.03 180) 100%)',
+      icon: <Icon.globe size={18} />,
+      title: 'Global Access',
+      desc: 'Invest from anywhere in the world with 24/7 dedicated support across 30+ languages.',
+    },
+    {
+      img: '/feature-3.avif',
+      bg: 'linear-gradient(135deg, oklch(0.20 0.05 240) 0%, oklch(0.13 0.03 260) 100%)',
+      icon: <Icon.scale size={18} />,
+      title: 'Transparent Fees',
+      desc: 'Annual advisory fees from 0.25%. No hidden commissions, no performance penalties, no surprises.',
+    },
+    {
+      img: '/feature-4.avif',
+      bg: 'linear-gradient(135deg, oklch(0.20 0.06 145) 0%, oklch(0.13 0.04 160) 100%)',
+      icon: <Icon.cpu size={18} />,
+      title: 'Algorithmic Strategies',
+      desc: 'Proprietary algorithms continuously rebalance your portfolio to maximise risk-adjusted returns.',
+    },
+  ]
+
   return (
     <section id="platform" style={{ paddingBlock: 'var(--section-pad)' }}>
       <div className="container">
@@ -318,35 +350,83 @@ export function Features() {
         <div
           ref={ref}
           className={`bento ${visible ? 'reveal visible' : 'reveal'}`}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gridAutoRows: 'minmax(220px, auto)', gap: 16 }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+            gridAutoRows: 'minmax(220px, auto)',
+            gap: 16,
+          }}
         >
-          <Card padded={false} interactive style={{ gridColumn: 'span 4', overflow: 'hidden' }}>
+          {/* Large chart card — spans 4 columns, top row */}
+          <Card padded={false} style={{ gridColumn: 'span 4', overflow: 'hidden' }}>
             <BentoCharting />
           </Card>
-          <Card padded interactive style={{ gridColumn: 'span 2' }}>
-            <BentoVault />
-          </Card>
-          <Card padded interactive style={{ gridColumn: 'span 2' }}>
-            <BentoGlobal />
-          </Card>
-          <Card padded interactive style={{ gridColumn: 'span 2' }}>
-            <BentoFees />
-          </Card>
-          <Card padded interactive style={{ gridColumn: 'span 2' }}>
-            <BentoAPI />
-          </Card>
+
+          {/* First image card — spans 2 columns, top row */}
+          <ImageFeatureCard card={imageCards[0]} style={{ gridColumn: 'span 2' }} />
+
+          {/* Remaining 3 image cards — 2 cols each, bottom row */}
+          <ImageFeatureCard card={imageCards[1]} style={{ gridColumn: 'span 2' }} />
+          <ImageFeatureCard card={imageCards[2]} style={{ gridColumn: 'span 2' }} />
+          <ImageFeatureCard card={imageCards[3]} style={{ gridColumn: 'span 2' }} />
         </div>
       </div>
     </section>
   )
 }
 
+function ImageFeatureCard({ card, style }) {
+  const [imgLoaded, setImgLoaded] = React.useState(false)
+  return (
+    <div style={{
+      position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden',
+      border: '1px solid var(--line)',
+      background: card.bg,
+      minHeight: 220, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+      ...style,
+    }}>
+      {/* Real image — shown once loaded, sits on top of gradient bg */}
+      <img
+        src={card.img}
+        alt={card.title}
+        onLoad={() => setImgLoaded(true)}
+        onError={() => {}}
+        style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%',
+          objectFit: 'cover', display: 'block',
+          opacity: imgLoaded ? 1 : 0,
+          transition: 'opacity 400ms ease',
+        }}
+      />
+      {/* Dark gradient overlay — always visible so text stays readable */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(to top, oklch(0.06 0.008 145 / 0.95) 0%, oklch(0.06 0.008 145 / 0.4) 55%, transparent 100%)',
+      }} />
+      {/* Text */}
+      <div style={{ position: 'relative', padding: '20px 22px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 7 }}>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            width: 30, height: 30, borderRadius: 8,
+            background: 'oklch(0.72 0.16 145 / 0.25)', color: 'var(--accent)',
+          }}>{card.icon}</span>
+          <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff', margin: 0 }}>{card.title}</h3>
+        </div>
+        <p style={{ fontSize: 13, color: 'oklch(0.82 0.02 145)', lineHeight: 1.55, margin: 0 }}>
+          {card.desc}
+        </p>
+      </div>
+    </div>
+  )
+}
+
 function BentoCharting() {
   const candles = React.useMemo(() => {
-    const arr = []; let p = 67000
+    const arr = []; let p = 148000
     for (let i = 0; i < 40; i++) {
       const o = p
-      const c = o + (Math.random() - 0.45) * 800
+      const c = o + (Math.random() - 0.42) * 900
       const h = Math.max(o, c) + Math.random() * 300
       const l = Math.min(o, c) - Math.random() * 300
       arr.push({ o, c, h, l }); p = c
@@ -358,21 +438,21 @@ function BentoCharting() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--line)' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-            <Badge tone="default" mono>BTC / USD</Badge>
+            <Badge tone="default" mono>BALANCED PORTFOLIO</Badge>
             <Badge tone="positive" dot mono>LIVE</Badge>
           </div>
-          <div className="mono" style={{ fontSize: 22, fontWeight: 600, letterSpacing: '-0.02em' }}>$67,841.20</div>
+          <div className="mono" style={{ fontSize: 22, fontWeight: 600, letterSpacing: '-0.02em' }}>$148,240.00</div>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <div style={{ fontSize: 11, color: 'var(--text-3)' }}>Charting & analytics</div>
-          <div style={{ fontSize: 14, fontWeight: 500, marginTop: 4 }}>120+ indicators · 9 timeframes</div>
+          <div style={{ fontSize: 11, color: 'var(--text-3)' }}>Performance analytics</div>
+          <div style={{ fontSize: 14, fontWeight: 500, marginTop: 4 }}>Real-time · Multi-asset view</div>
         </div>
       </div>
       <div style={{ padding: 12, flex: 1 }}>
         <Candlestick candles={candles} height={170} />
       </div>
       <div style={{ display: 'flex', gap: 8, padding: '12px 20px', borderTop: '1px solid var(--line)', flexWrap: 'wrap' }}>
-        {['EMA 21','RSI','MACD','Volume','Bollinger'].map((t) => (
+        {['Equities','Bonds','Real Estate','Alternatives','Cash'].map((t) => (
           <span key={t} className="mono" style={{
             fontSize: 11, padding: '4px 8px', borderRadius: 6,
             background: 'var(--bg-2)', border: '1px solid var(--line)', color: 'var(--text-2)',
@@ -390,9 +470,9 @@ function BentoVault() {
         <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 9, background: 'var(--accent-soft)', color: 'var(--accent)', marginBottom: 14 }}>
           <Icon.shieldCheck size={18} />
         </div>
-        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Cold-storage custody</h3>
+        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Institutional-grade custody</h3>
         <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.55 }}>
-          Multi-sig segregated vaults with $250M crime insurance. 95% of digital assets held offline at all times.
+          Client funds held in fully segregated accounts at tier-1 custodian banks. SIPC-insured up to $500,000.
         </p>
       </div>
       <div style={{ display: 'flex', gap: 6 }}>
@@ -439,13 +519,13 @@ function BentoFees() {
         <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 9, background: 'var(--accent-soft)', color: 'var(--accent)', marginBottom: 14 }}>
           <Icon.scale size={18} />
         </div>
-        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Fees, in plain language</h3>
+        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Transparent fee structure</h3>
         <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.55 }}>
-          $0 stock commissions. 0.10% / 0.20% maker-taker on spot crypto. No PFOF on equities.
+          Annual advisory fees from 0.25%. No hidden commissions, no performance penalties, no surprise charges.
         </p>
       </div>
       <div className="mono" style={{ fontSize: 11, color: 'var(--text-4)', marginTop: 12 }}>
-        Equities &middot; Options &middot; FX &middot; Crypto &middot; Futures
+        Equities &middot; Bonds &middot; Real Estate &middot; Alternatives &middot; Cash
       </div>
     </div>
   )
@@ -458,13 +538,18 @@ function BentoAPI() {
         <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 9, background: 'var(--accent-soft)', color: 'var(--accent)', marginBottom: 14 }}>
           <Icon.cpu size={18} />
         </div>
-        <h3 style={{ fontSize: 18, marginBottom: 8 }}>FIX & REST APIs</h3>
+        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Algorithmic strategies</h3>
         <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.55 }}>
-          Sub-12ms FIX 4.4 access, REST + WebSocket data, idempotent order endpoints, signed webhooks.
+          Proprietary algorithms continuously rebalance your portfolio to maximise risk-adjusted returns.
         </p>
       </div>
-      <div className="mono" style={{ fontSize: 11, padding: 10, borderRadius: 8, background: 'var(--bg-2)', border: '1px solid var(--line)', color: 'var(--text-2)', marginTop: 12 }}>
-        <span style={{ color: 'var(--accent)' }}>POST</span> /v1/orders
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
+        {['Auto-rebalancing', 'Tax-loss harvesting', 'Risk management'].map((item) => (
+          <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 12, color: 'var(--text-3)' }}>
+            <span style={{ color: 'var(--accent)', flexShrink: 0 }}><Icon.check size={12} /></span>
+            {item}
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -567,7 +652,7 @@ export function Simulator() {
               <AreaChart data={data} height={240} />
             </div>
             <div style={{ padding: '12px 20px', borderTop: '1px solid var(--line)', fontSize: 11, color: 'var(--text-4)', lineHeight: 1.5, fontFamily: 'var(--font-mono)' }}>
-              Illustrative projection. Returns shown are based on 10-year historical performance of the chosen Tesla risk profile, net of 0.10% spot fees. Investments can lose value.
+              Illustrative projection. Returns shown are based on 10-year historical performance of the chosen risk profile, net of advisory fees. Investments can lose value.
             </div>
           </Card>
         </div>
@@ -581,71 +666,119 @@ export function Pricing({ onAuthOpen }) {
   const [ref, visible] = useReveal()
   const tiers = [
     {
-      name: 'Standard', tag: 'For getting started', price: '$0', sub: 'No monthly fee',
-      features: ['$0 commissions on US equities', '0.20% / 0.30% spot crypto (maker / taker)', 'Real-time data on 8 exchanges', 'Mobile + web apps', 'Email support, 12-hour SLA'],
-      cta: 'Open account',
+      name: 'Tesla Starter',
+      roi: '1.5%',
+      duration: '5 Days',
+      minDeposit: '$500',
+      maxDeposit: '$9,999',
+      popular: false,
     },
     {
-      name: 'Active', tag: 'For active investors', price: '$15', sub: '/ month', popular: true,
-      features: ['Everything in Standard', '0.10% / 0.20% spot crypto', 'Advanced charting + 120 indicators', 'API access (REST + WebSocket)', 'Priority routing + lower spreads', 'Live chat, 30-minute SLA'],
-      cta: 'Start 30-day trial',
+      name: 'Tesla Active',
+      roi: '2.5%',
+      duration: '2 Weeks',
+      minDeposit: '$10,000',
+      maxDeposit: '$49,999',
+      popular: true,
     },
     {
-      name: 'Elite', tag: 'For institutions & pros', price: 'Custom', sub: '50+ contract volume',
-      features: ['Everything in Active', 'Dedicated trading desk', 'OTC liquidity & block routing', 'FIX 4.4 connectivity', 'White-glove onboarding', 'Custom reporting + audit exports'],
-      cta: 'Talk to sales',
+      name: 'Tesla Elite',
+      roi: '3.0%',
+      duration: '1 Month',
+      minDeposit: '$50,000',
+      maxDeposit: 'Unlimited',
+      popular: false,
     },
   ]
   return (
     <section id="pricing" style={{ paddingBlock: 'var(--section-pad)' }}>
       <div className="container">
-        <SectionHeading
-          eyebrow="Account tiers"
-          title="Pricing that pays for itself."
-          subtitle="No surprise fees, no payment-for-order-flow, no minimums. Pick a tier — change it any time."
-        />
-        <div ref={ref} className={`pricing-grid ${visible ? 'reveal visible' : 'reveal'}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, isolation: 'isolate' }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, letterSpacing: '-0.025em', marginBottom: 14 }}>
+            Investment Packages
+          </h2>
+          <p style={{ fontSize: 16, color: 'var(--text-2)' }}>
+            Choose the tier that aligns with your financial goals.
+          </p>
+        </div>
+        <div ref={ref} className={`pricing-grid ${visible ? 'reveal visible' : 'reveal'}`}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, isolation: 'isolate' }}
+        >
           {tiers.map((t) => (
-            <Card key={t.name} padded={false} elevation={t.popular ? 3 : 1}
-              style={{ position: 'relative', overflow: 'hidden', borderColor: t.popular ? 'var(--accent-line)' : 'var(--line)', ...(t.popular ? { boxShadow: 'var(--shadow-pop), var(--glow)' } : {}) }}
-            >
+            <div key={t.name} style={{
+              position: 'relative',
+              borderRadius: 16,
+              padding: t.popular ? '0 0 28px' : '28px 28px',
+              background: 'var(--surface)',
+              border: `1.5px solid ${t.popular ? 'var(--accent)' : 'var(--line)'}`,
+              boxShadow: t.popular ? '0 0 32px oklch(0.72 0.16 145 / 0.18)' : 'none',
+              display: 'flex', flexDirection: 'column', gap: 0,
+              overflow: 'hidden',
+            }}>
               {t.popular && (
                 <div style={{
-                  position: 'absolute', top: 0, left: 0, right: 0, height: 28,
-                  background: 'linear-gradient(90deg, transparent, var(--accent-soft), transparent)',
-                  borderTopLeftRadius: 'var(--radius-lg)', borderTopRightRadius: 'var(--radius-lg)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 10.5, fontFamily: 'var(--font-mono)', color: 'var(--accent)',
-                  letterSpacing: '0.16em', textTransform: 'uppercase',
-                }}>Most popular</div>
+                  background: 'var(--accent)',
+                  padding: '10px 0',
+                  textAlign: 'center',
+                  fontSize: 12, fontWeight: 600, letterSpacing: '0.12em',
+                  textTransform: 'uppercase', color: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  marginBottom: 28,
+                }}>
+                  <Icon.star size={13} /> Most Popular
+                </div>
               )}
-              <div style={{ padding: t.popular ? '40px 26px 26px' : '26px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
-                  <h3 style={{ fontSize: 19, fontWeight: 600 }}>{t.name}</h3>
-                  <span style={{ fontSize: 11.5, color: 'var(--text-3)' }}>{t.tag}</span>
+              <div style={{ padding: t.popular ? '0 28px' : '0', flex: 1 }}>
+                <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16 }}>{t.name}</h3>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 28 }}>
+                  <span style={{
+                    fontSize: 48, fontWeight: 700, letterSpacing: '-0.03em',
+                    color: 'var(--accent)', fontFamily: 'var(--font-mono)',
+                    lineHeight: 1,
+                  }}>{t.roi}</span>
+                  <span style={{ fontSize: 13, color: 'var(--text-3)', lineHeight: 1.3 }}>ROI<br />/ Daily</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginTop: 10, marginBottom: 24 }}>
-                  <span className="mono" style={{ fontSize: 36, fontWeight: 600, letterSpacing: '-0.025em' }}>{t.price}</span>
-                  <span style={{ fontSize: 13, color: 'var(--text-3)' }}>{t.sub}</span>
-                </div>
-                <Button
-                  variant={t.popular ? 'primary' : 'secondary'} size="md"
-                  onClick={() => onAuthOpen('signup')}
-                  style={{ width: '100%' }}
-                  iconRight={<Icon.arrow size={13} />}
-                >{t.cta}</Button>
-              </div>
-              <div style={{ borderTop: '1px solid var(--line)', padding: '20px 26px 26px' }}>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  {t.features.map((f) => (
-                    <li key={f} style={{ display: 'flex', gap: 10, fontSize: 13.5, color: 'var(--text-2)' }}>
-                      <span style={{ color: t.popular ? 'var(--accent)' : 'var(--text-3)', flexShrink: 0, marginTop: 2 }}><Icon.check size={14} /></span>
-                      <span>{f}</span>
-                    </li>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderTop: '1px solid var(--line)', marginBottom: 28 }}>
+                  {[
+                    { label: 'Duration',    value: t.duration    },
+                    { label: 'Min Deposit', value: t.minDeposit  },
+                    { label: 'Max Deposit', value: t.maxDeposit  },
+                  ].map((row) => (
+                    <div key={row.label} style={{
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      padding: '14px 0', borderBottom: '1px solid var(--line)',
+                    }}>
+                      <span style={{ fontSize: 14, color: 'var(--text-3)' }}>{row.label}</span>
+                      <span className="mono" style={{
+                        fontSize: 14, fontWeight: 600,
+                        color: row.label === 'Duration' ? 'var(--accent)' : 'var(--text)',
+                      }}>{row.value}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
+                <button
+                  onClick={() => onAuthOpen('signup')}
+                  style={{
+                    width: '100%', padding: '14px 0',
+                    borderRadius: 10, fontSize: 13, fontWeight: 600,
+                    letterSpacing: '0.06em', textTransform: 'uppercase',
+                    cursor: 'pointer', transition: 'all 180ms ease',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                    background: t.popular ? 'var(--accent)' : 'transparent',
+                    color: t.popular ? '#fff' : 'var(--accent)',
+                    border: `1.5px solid var(--accent)`,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = t.popular ? 'oklch(0.62 0.16 145)' : 'var(--accent-soft)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = t.popular ? 'var(--accent)' : 'transparent'
+                  }}
+                >
+                  Start Investing <Icon.arrow size={14} />
+                </button>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </div>
@@ -656,24 +789,24 @@ export function Pricing({ onAuthOpen }) {
 /* ── Compare ──────────────────────────────────────── */
 export function Compare() {
   const [ref, visible] = useReveal()
-  const cols = ['Tesla', 'Legacy broker', 'Neobank', 'Crypto-only app']
+  const cols = ['[Company]', 'Traditional bank', 'Robo-advisor', 'Hedge fund']
   const rows = [
-    { label: 'Stock commission',               vals: ['$0',                      '$4.95–$9.95',  '$0',         '—']           },
-    { label: 'Spot crypto (taker)',             vals: ['0.20%',                   'N/A',          '~1.49%',     '0.40–0.60%']  },
-    { label: 'Equities + crypto in one account',vals: ['Yes',                    'Rarely',       'Limited',    'No']           },
-    { label: 'Cold-storage custody',           vals: ['Multi-sig, $250M insured','—',            'Custodial',  'Custodial']   },
-    { label: 'API + FIX 4.4 access',           vals: ['Yes',                    'Pro tier only','No',         'REST only']    },
-    { label: 'Real-time concierge desk',       vals: ['24/7',                   'Business hours','Chatbot',   'Email']        },
-    { label: 'Payment for order flow',         vals: ['Never',                  'Common',       'Sometimes',  'Sometimes']    },
-    { label: 'Statement transparency',         vals: ['Per-trade markup shown', 'Bundled',      'Bundled',    'Bundled']      },
+    { label: 'Minimum investment',          vals: ['$5,000',          '$50,000+',       '$500',           '$1,000,000+']   },
+    { label: 'Annual advisory fee',         vals: ['From 0.25%',      '1.00–2.00%',     '0.25–0.50%',     '2% + 20%']      },
+    { label: 'Dedicated account manager',   vals: ['Yes, all tiers',  'Wealth tier only','No',            'Yes']           },
+    { label: 'Institutional-grade custody', vals: ['Segregated accts','Bank custodian',  'Custodial',      'Prime broker']  },
+    { label: 'Algorithmic rebalancing',     vals: ['Yes, included',   'Manual only',    'Basic',          'Proprietary']   },
+    { label: 'Real-time concierge desk',    vals: ['24/7',            'Business hours', 'Chatbot',        'Limited']       },
+    { label: 'Hidden fees',                 vals: ['Never',           'Common',         'Occasional',     'Common']        },
+    { label: 'Performance reporting',       vals: ['Plain-English',   'Quarterly PDF',  'App dashboard',  'Monthly bundle'] },
   ]
   return (
     <section id="compare" style={{ paddingBlock: 'var(--section-pad)', background: 'var(--bg-2)', borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
       <div className="container">
         <SectionHeading
-          eyebrow="Tesla vs the rest"
-          title="Compare what your fees actually buy."
-          subtitle="An honest line-by-line comparison against a typical legacy broker, neobank, and crypto-only app."
+          eyebrow="How we compare"
+          title="More value, less cost."
+          subtitle="An honest line-by-line comparison against traditional banks, robo-advisors, and hedge funds."
         />
         <div ref={ref} className={visible ? 'reveal visible' : 'reveal'}>
           <Card padded={false} elevation={2} style={{ overflow: 'hidden' }}>
@@ -760,7 +893,7 @@ export function Docs() {
       icon: <Icon.layers size={22} />,
       title: 'Pick your strategy',
       desc: 'Choose a managed portfolio that matches your goals — Conservative, Balanced, or Growth — or select your own assets.',
-      tags: ['Expert-managed options', 'Stocks & crypto', 'Adjust any time'],
+      tags: ['Expert-managed options', 'Multi-asset portfolios', 'Adjust any time'],
     },
     {
       number: '04',
@@ -775,7 +908,7 @@ export function Docs() {
     {
       icon: <Icon.shieldCheck size={20} />,
       title: 'Your money is always protected',
-      desc: 'Cash balances are insured up to $500,000. Digital assets are held in cold storage with $250M crime coverage.',
+      desc: 'Cash balances are SIPC-insured up to $500,000. All investments held in fully segregated custodian accounts.',
     },
     {
       icon: <Icon.lock size={20} />,
@@ -928,11 +1061,11 @@ function DashOverview() {
         <div style={{ padding: '20px 20px 14px' }}>
           <div style={{ fontSize: 12, color: 'var(--text-3)', marginBottom: 14 }}>Holdings</div>
           {[
-            { sym: 'BTC',  name: 'Bitcoin',   alloc: 38, val: 56014, ch:  1.42 },
-            { sym: 'AAPL', name: 'Apple',     alloc: 21, val: 30955, ch:  0.42 },
-            { sym: 'NVDA', name: 'NVIDIA',    alloc: 18, val: 26534, ch:  2.18 },
-            { sym: 'ETH',  name: 'Ethereum',  alloc: 14, val: 20637, ch: -0.84 },
-            { sym: 'Cash', name: 'USD',       alloc:  9, val: 13266, ch:  0    },
+            { sym: 'EQ',   name: 'Global Equities', alloc: 44, val: 64900, ch:  1.42 },
+            { sym: 'FI',   name: 'Fixed Income',    alloc: 22, val: 32449, ch:  0.21 },
+            { sym: 'RE',   name: 'Real Estate',     alloc: 15, val: 22137, ch:  0.88 },
+            { sym: 'ALT',  name: 'Alternatives',    alloc: 10, val: 14741, ch: -0.34 },
+            { sym: 'CASH', name: 'Cash & Equiv.',   alloc:  9, val: 13266, ch:  0    },
           ].map((h) => (
             <div key={h.sym} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 0' }}>
               <span style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--bg-2)', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-2)' }}>
@@ -962,14 +1095,14 @@ function DashOverview() {
 
 function DashMarkets() {
   const rows = [
-    { sym: 'BTC',  name: 'Bitcoin',   price: 67841.20, ch:  1.42, vol: '12.4B', spark: [3,5,4,7,6,9,8,11,9,12,11,14,13,16,15] },
-    { sym: 'ETH',  name: 'Ethereum',  price:  3520.18, ch: -0.84, vol: '6.1B',  spark: [12,11,10,11,10,9,10,9,10,9,8,9,8,9,8] },
-    { sym: 'AAPL', name: 'Apple',     price:   224.31, ch:  0.42, vol: '4.2B',  spark: [8,9,8,10,9,11,10,12,11,13,12,13,14,13,14] },
-    { sym: 'NVDA', name: 'NVIDIA',    price:   945.07, ch:  2.18, vol: '21.0B', spark: [4,5,5,6,7,8,8,9,10,11,12,13,14,16,18] },
-    { sym: 'SOL',  name: 'Solana',    price:   178.62, ch:  3.21, vol: '2.8B',  spark: [3,4,5,4,5,6,5,7,8,9,10,11,12,13,14] },
-    { sym: 'GOOGL',name: 'Alphabet',  price:   178.94, ch: -0.31, vol: '2.1B',  spark: [10,11,11,10,11,11,10,11,11,10,11,11,10,10,10] },
-    { sym: 'MSFT', name: 'Microsoft', price:   432.15, ch:  0.55, vol: '3.4B',  spark: [9,10,10,11,11,11,12,12,12,13,12,13,13,14,13] },
-    { sym: 'AVAX', name: 'Avalanche', price:    38.21, ch: -1.62, vol: '710M',  spark: [13,12,12,11,11,10,10,9,9,8,9,8,8,7,7] },
+    { sym: 'AAPL', name: 'Apple Inc.',         price:   224.31, ch:  0.42, vol: '4.2B',  spark: [8,9,8,10,9,11,10,12,11,13,12,13,14,13,14] },
+    { sym: 'MSFT', name: 'Microsoft Corp.',    price:   432.15, ch:  0.55, vol: '3.4B',  spark: [9,10,10,11,11,11,12,12,12,13,12,13,13,14,13] },
+    { sym: 'NVDA', name: 'NVIDIA Corp.',       price:   945.07, ch:  2.18, vol: '21.0B', spark: [4,5,5,6,7,8,8,9,10,11,12,13,14,16,18] },
+    { sym: 'GOOGL',name: 'Alphabet Inc.',      price:   178.94, ch: -0.31, vol: '2.1B',  spark: [10,11,11,10,11,11,10,11,11,10,11,11,10,10,10] },
+    { sym: 'AMZN', name: 'Amazon.com Inc.',    price:   195.42, ch:  1.04, vol: '5.8B',  spark: [6,7,7,8,9,9,10,10,11,12,12,13,13,14,15] },
+    { sym: 'BRK.B',name: 'Berkshire Hathaway',price:   406.18, ch:  0.18, vol: '1.2B',  spark: [10,10,11,11,11,12,12,11,12,12,13,13,12,13,13] },
+    { sym: 'SPY',  name: 'S&P 500 ETF',        price:   538.24, ch:  0.62, vol: '18.4B', spark: [9,10,10,11,11,12,12,13,13,14,13,14,14,15,15] },
+    { sym: 'BND',  name: 'Vanguard Bond ETF',  price:    73.51, ch: -0.12, vol: '820M',  spark: [12,12,11,12,12,11,12,11,12,12,11,11,12,11,12] },
   ]
   return (
     <div style={{ padding: 4 }}>
@@ -1009,10 +1142,11 @@ function DashMarkets() {
 
 function DashPortfolio() {
   const allocs = [
-    { name: 'Equities',       value: 46, color: 'var(--accent)' },
-    { name: 'Digital assets', value: 30, color: 'oklch(0.78 0.16 245)' },
-    { name: 'Fixed income',   value: 14, color: 'oklch(0.78 0.16 155)' },
-    { name: 'Cash',           value: 10, color: 'oklch(0.6 0.04 250)'  },
+    { name: 'Equities',       value: 44, color: 'var(--accent)' },
+    { name: 'Fixed income',   value: 22, color: 'oklch(0.78 0.16 245)' },
+    { name: 'Real estate',    value: 15, color: 'oklch(0.78 0.16 155)' },
+    { name: 'Alternatives',   value: 10, color: 'oklch(0.72 0.14 30)'  },
+    { name: 'Cash',           value:  9, color: 'oklch(0.6 0.04 250)'  },
   ]
   let acc = 0
   const segs = allocs.map((a) => { const start = acc; acc += a.value; return { ...a, start, end: acc } })
@@ -1051,11 +1185,11 @@ function DashPortfolio() {
       <div style={{ padding: 24 }}>
         <div style={{ fontSize: 12, color: 'var(--text-3)', marginBottom: 16 }}>Recent activity</div>
         {[
-          { type: 'BUY',     sym: 'NVDA', q: 4,    p: 944.10,   t: '14:22'     },
-          { type: 'SELL',    sym: 'BTC',  q: 0.05, p: 67801.10, t: '11:08'     },
+          { type: 'BUY',     sym: 'SPY',  q: 10,   p: 537.90,   t: '14:22'     },
+          { type: 'BUY',     sym: 'MSFT', q: 5,    p: 431.20,   t: '11:08'     },
           { type: 'DEPOSIT', sym: 'USD',  q: 5000, p: 1,        t: '09:14'     },
           { type: 'DIV',     sym: 'AAPL', q: 8,    p: 0.25,     t: 'Yesterday' },
-          { type: 'BUY',     sym: 'ETH',  q: 1.2,  p: 3518.10,  t: 'Yesterday' },
+          { type: 'SELL',    sym: 'BND',  q: 20,   p: 73.40,    t: 'Yesterday' },
         ].map((a, i) => (
           <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: i < 4 ? '1px solid var(--line)' : 'none', fontSize: 13 }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
@@ -1111,7 +1245,7 @@ export function CTA({ onAuthOpen }) {
 /* ── Footer ───────────────────────────────────────── */
 export function Footer() {
   const cols = {
-    Product:   ['Markets', 'Charting', 'Custody', 'API', 'Mobile'],
+    Product:   ['Markets', 'Portfolio', 'Custody', 'Analytics', 'Mobile'],
     Company:   ['About', 'Customers', 'Press', 'Careers', 'Contact'],
     Resources: ['Documentation', 'Status', 'Security', 'System metrics', 'Changelog'],
     Legal:     ['Privacy', 'Terms', 'Disclosures', 'Best execution', 'Form CRS'],
@@ -1149,7 +1283,7 @@ export function Footer() {
         <div className="footer-bottom" style={{ marginTop: 56, paddingTop: 24, borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <span style={{ fontSize: 12, color: 'var(--text-4)' }}>© 2026 Tesla, Inc. All rights reserved.</span>
           <span className="footer-legal" style={{ fontSize: 11.5, color: 'var(--text-4)', maxWidth: 700, textAlign: 'right', lineHeight: 1.5 }}>
-            Securities offered through Tesla Securities LLC, member FINRA/SIPC. Crypto services provided by Tesla Custody LLC. Investing involves risk, including loss of principal.
+            Investment advisory services offered through [Company] Advisors LLC, a registered investment adviser. Investing involves risk, including the possible loss of principal.
           </span>
         </div>
       </div>

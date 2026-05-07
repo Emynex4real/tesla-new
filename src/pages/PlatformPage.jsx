@@ -20,15 +20,15 @@ const investors = [
     icon: <Icon.layers size={22} />,
     title: 'Institutions & advisors',
     desc: 'Institutional-grade execution, white-glove onboarding, and a dedicated relationship manager available around the clock.',
-    features: ['Custom reporting & exports', 'OTC liquidity & block routing', 'Dedicated relationship manager'],
+    features: ['Custom reporting & exports', 'Bespoke portfolio strategies', 'Dedicated relationship manager'],
   },
 ]
 
 const security = [
   {
     icon: <Icon.shieldCheck size={20} />,
-    title: 'Multi-sig cold storage',
-    desc: '$250M crime insurance. 95% of digital assets held offline at all times.',
+    title: 'Segregated client accounts',
+    desc: 'All client funds held in fully segregated accounts at tier-1 custodian banks. SIPC-insured up to $500,000.',
   },
   {
     icon: <Icon.lock size={20} />,

@@ -6,27 +6,27 @@ import { SectionHeading, Button, Card, Icon } from '../ui'
 const faqs = [
   {
     q: 'Are there any hidden fees?',
-    a: 'No. Tesla charges zero commissions on US stocks and ETFs. Crypto spot trades are 0.20% taker / 0.10% maker. There are no account maintenance fees, no inactivity fees, and no withdrawal fees. You always see the full cost before you confirm a trade.',
+    a: 'No. Advisory fees are clearly stated in your investment agreement and shown transparently on your dashboard. There are no account maintenance fees, no inactivity fees, and no withdrawal fees. You always see exactly what you pay.',
   },
   {
-    q: 'What is payment for order flow, and does Tesla use it?',
-    a: 'Payment for order flow (PFOF) is when a broker sells your trade to a market maker instead of sending it to an exchange. This can result in worse prices for you. Tesla never uses PFOF — your orders are routed directly for best execution.',
+    q: 'What is the minimum investment amount?',
+    a: 'Our Foundation tier starts at $5,000. Higher tiers begin at $10,000, $20,000, $30,000, $50,000, and $100,000. Each tier is designed to deliver proportionally higher projected returns as your capital grows.',
   },
   {
-    q: 'Can I change my plan at any time?',
-    a: 'Yes. You can upgrade or downgrade between Standard, Active, and Elite at any time from your account settings. Downgrades take effect at the end of your current billing cycle.',
+    q: 'Can I change my investment tier at any time?',
+    a: 'Yes. You can upgrade from Starter to Active or Elite at any time from your account dashboard. Our team will guide you through the process and ensure a smooth transition with no disruption to your portfolio.',
   },
   {
-    q: 'Is there a minimum balance to open an account?',
-    a: 'No. You can open a Tesla account with any amount — even $1. There are no minimum deposit requirements on Standard or Active plans.',
+    q: 'How are my funds protected?',
+    a: 'All client funds are held in fully segregated accounts at tier-1 custodian banks. Cash balances are SIPC-insured up to $500,000. We are registered and regulated, and your funds are never commingled with company assets.',
   },
   {
-    q: 'How does the 30-day Active trial work?',
-    a: 'When you sign up for Active, you get your first 30 days completely free. No credit card is charged until the trial ends. Cancel any time before day 30 and you will never be billed.',
+    q: 'How quickly can I access my returns?',
+    a: 'Withdrawal requests are processed within 1–3 business days. There are no lock-up periods. You can submit a withdrawal at any time directly from your dashboard.',
   },
   {
-    q: 'What does the Elite plan include for institutions?',
-    a: 'Elite gives you a dedicated trading desk, OTC liquidity for block orders, white-glove onboarding, custom reporting and compliance exports, and a dedicated relationship manager. Pricing is based on trading volume — contact our sales team for a quote.',
+    q: 'What does the Elite plan include?',
+    a: 'The Tesla Elite plan ($50,000+, unlimited cap) gives you our highest daily ROI of 3.0%, a dedicated relationship manager, bespoke portfolio strategy, weekly performance briefings, and access to exclusive investment opportunities not available on lower tiers.',
   },
 ]
 
@@ -68,12 +68,12 @@ export default function PricingPage({ onAuthOpen }) {
   return (
     <>
       <PageHero
-        eyebrow="Pricing"
-        title="Simple, honest pricing."
-        subtitle="No hidden fees, no payment for order flow, no surprises. Choose the plan that fits your goals and change it any time."
+        eyebrow="Investment Packages"
+        title="Choose the tier that aligns with your financial goals."
+        subtitle="Transparent returns, dedicated support, and clear performance reporting — at every level."
         cta={
           <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>
-            Start for free
+            Start Investing
           </Button>
         }
       />
