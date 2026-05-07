@@ -829,8 +829,8 @@ export function Docs() {
                     ))}
                   </div>
                   {i < steps.length - 1 && (
-                    <div aria-hidden="true" style={{
-                      position: 'absolute', right: -10, top: '50%', transform: 'translateY(-50%)',
+                    <div aria-hidden="true" className="step-arrow" style={{
+                      position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)',
                       color: 'var(--text-4)', zIndex: 2,
                     }}>
                       <Icon.arrow size={16} />
