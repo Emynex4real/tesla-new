@@ -73,16 +73,8 @@ function Sidebar({ isOpen, setIsOpen, currentView, setCurrentView, onLogout }) {
       <aside className={`db-sidebar${isOpen ? ' open' : ''}`}>
         {/* Logo row */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <span style={{
-              width: 32, height: 32, borderRadius: 8,
-              background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <Wallet size={17} color="var(--bg)" />
-            </span>
-            <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.02em' }}>
-              Tesla<span style={{ color: 'var(--accent)' }}>.</span>
-            </span>
+          <a href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+            <img src="/logo.png" alt="Logo" style={{ height: 30, width: 'auto', display: 'block' }} />
           </a>
           <button
             onClick={() => setIsOpen(false)}
