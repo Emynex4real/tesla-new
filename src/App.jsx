@@ -3,8 +3,8 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useTweaks, TweaksPanel, TweakSection, TweakSlider, TweakRadio } from './tweaks'
 import {
-  NavBar, Hero, TrustStrip, Features, Simulator, Pricing,
-  Compare, Docs, DashboardPreview, CTA, Footer, MarketTicker,
+  NavBar, Hero, TrustStrip, Features, WhyInvest, Pricing,
+  Docs, CTA, Footer, MarketTicker,
 } from './sections'
 import { CommandPalette } from './composites'
 import { AuthDialog } from './auth'
@@ -102,14 +102,12 @@ function App() {
       <Routes>
         <Route path="/" element={
           <main>
-            <Hero onAuthOpen={openAuth} layout={t.heroLayout} />
+            <Hero onAuthOpen={openAuth} />
             <TrustStrip />
             <Features />
-            <Simulator />
+            <WhyInvest onAuthOpen={openAuth} />
             <Pricing onAuthOpen={openAuth} />
-            <Compare />
             <Docs />
-            <DashboardPreview />
             <CTA onAuthOpen={openAuth} />
           </main>
         } />

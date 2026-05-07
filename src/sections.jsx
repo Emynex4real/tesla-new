@@ -46,15 +46,18 @@ export function NavBar({ onCmdK, onAuthOpen }) {
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: scrolled ? 'oklch(0.14 0.008 145 / 0.82)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
-      WebkitBackdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
-      borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
-      transition: 'background 220ms ease, border-color 220ms ease',
+      background: 'oklch(0.14 0.008 145 / 0.82)',
+      backdropFilter: 'blur(16px) saturate(160%)',
+      WebkitBackdropFilter: 'blur(16px) saturate(160%)',
+      borderBottom: '1px solid var(--line)',
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-        <Link to="/" aria-label="Tesla home" style={{ display: 'inline-flex' }}>
-          <Logo />
+        <Link to="/" aria-label="Tesla home" style={{
+          display: 'inline-flex', alignItems: 'center',
+          fontSize: 20, fontWeight: 700, letterSpacing: '0.28em',
+          color: 'var(--text)', textTransform: 'uppercase',
+        }}>
+          TESLA
         </Link>
 
         <nav aria-label="Primary" className="nav-desktop">
@@ -139,151 +142,111 @@ export function NavBar({ onCmdK, onAuthOpen }) {
 }
 
 /* ── Hero ─────────────────────────────────────────── */
-export function Hero({ onAuthOpen, layout }) {
-  const useSplit = layout === 'split'
+export function Hero({ onAuthOpen }) {
   const [ref, visible] = useReveal(0.05)
 
-  const chartData = React.useMemo(() => {
-    const arr = []; let v = 124000
-    for (let i = 0; i < 90; i++) {
-      v += (Math.random() - 0.45) * 1800 + i * 40
-      arr.push({ t: `Day ${i + 1}`, v: Math.max(95000, Math.round(v)) })
-    }
-    return arr
-  }, [])
+  const stats = [
+    { value: '$2.4B+',  label: 'Assets Under Custody' },
+    { value: '+18.7%',  label: '3-Year Avg. Return'   },
+    { value: '24/7',    label: 'Client Support'        },
+    { value: '5,200+',  label: 'Active Portfolios'     },
+  ]
 
   return (
-    <section style={{ position: 'relative', overflow: 'hidden', paddingTop: 56 }}>
-      <div aria-hidden="true" style={{
-        position: 'absolute', top: -260, left: '50%', transform: 'translateX(-50%)',
-        width: 1100, height: 700, pointerEvents: 'none',
-        background: 'radial-gradient(closest-side, var(--accent-soft), transparent 70%)',
-        filter: 'blur(40px)', opacity: 0.7,
-      }} />
-      <div className="grid-bg" aria-hidden="true" style={{
-        position: 'absolute', inset: 0, opacity: 0.5,
-        maskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)',
-        WebkitMaskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)',
-      }} />
+    <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      {/* Background image */}
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0 }}>
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          fetchPriority="high"
+          loading="eager"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block', opacity: 0.55 }}
+        />
+        {/* Dark gradient overlay — top to bottom so text stays readable */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(to bottom, oklch(0.14 0.008 145 / 0.45) 0%, oklch(0.14 0.008 145 / 0.65) 50%, oklch(0.14 0.008 145) 100%)',
+        }} />
+      </div>
+      {/* Subtle grid pattern on top */}
+      <div className="grid-bg" aria-hidden="true" style={{ position: 'absolute', inset: 0, opacity: 0.18 }} />
 
+      {/* Centered headline content */}
       <div
         ref={ref}
-        className={`container hero-grid ${visible ? 'reveal visible' : 'reveal'}`}
+        className={visible ? 'reveal visible' : 'reveal'}
         style={{
-          position: 'relative', display: 'grid',
-          gridTemplateColumns: useSplit ? '1.05fr 1fr' : '1fr',
-          gap: 56, alignItems: 'center',
-          paddingTop: 64, paddingBottom: 72,
+          position: 'relative', zIndex: 10, textAlign: 'center',
+          maxWidth: 880, margin: '0 auto',
+          padding: '0 24px',
+          paddingTop: 'max(128px, 18vh)',
+          paddingBottom: 56,
         }}
       >
-        <div style={{ textAlign: useSplit ? 'left' : 'center', maxWidth: useSplit ? 'none' : 880, marginInline: useSplit ? '0' : 'auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 22 }}>
-            <Badge tone="accent" dot>Live · Q2 2026</Badge>
-            <span style={{ fontSize: 12, color: 'var(--text-3)' }}>SOC 2 Type II · ISO 27001</span>
-          </div>
-          <h1 style={{
-            fontSize: useSplit ? 'clamp(40px, 6vw, 72px)' : 'clamp(40px, 7vw, 88px)',
-            lineHeight: 1.02, fontWeight: 600, letterSpacing: '-0.035em',
-            marginBottom: 20, textWrap: 'balance',
-          }}>
-            Invest with{' '}
-            <span style={{
-              background: 'linear-gradient(120deg, var(--text), var(--accent) 80%)',
-              WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
-            }}>conviction.</span>
-          </h1>
-          <p className="hero-p" style={{
-            fontSize: 19, color: 'var(--text-2)', lineHeight: 1.5,
-            maxWidth: 560, marginInline: useSplit ? '0' : 'auto',
-            marginBottom: 32, textWrap: 'pretty',
-          }}>
-            An investment platform built for long-term wealth creation. Institutional-grade portfolios, transparent performance, and a dedicated team that puts your returns first.
-          </p>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: useSplit ? 'flex-start' : 'center', marginBottom: 32 }}>
-            <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>Open an account</Button>
-            <Button size="lg" variant="outline" iconLeft={<Icon.bolt size={14} />}>Watch a 90-second demo</Button>
-          </div>
-          <div className="hero-stats" style={{
-            display: 'inline-flex', flexWrap: 'wrap', gap: 22,
-            paddingTop: 20, borderTop: '1px solid var(--line)',
-            justifyContent: useSplit ? 'flex-start' : 'center',
-          }}>
-            {[
-              { k: '$2.4B',  l: 'Assets under custody' },
-              { k: '+18.7%', l: '3-year avg. return'   },
-              { k: '24/7',   l: 'Client concierge'     },
-              { k: '5,200+', l: 'Portfolios active'    },
-            ].map((s) => (
-              <div key={s.l}>
-                <div className="mono" style={{ fontSize: 18, fontWeight: 600, letterSpacing: '-0.01em' }}>{s.k}</div>
-                <div style={{ fontSize: 11.5, color: 'var(--text-3)', marginTop: 2 }}>{s.l}</div>
-              </div>
-            ))}
-          </div>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 24 }}>
+          <Badge tone="accent" dot>Live · Q2 2026</Badge>
+          <span style={{ fontSize: 12, color: 'var(--text-3)' }}>SOC 2 Type II · ISO 27001</span>
         </div>
-        {useSplit && <HeroChart chartData={chartData} />}
-      </div>
-      {!useSplit && (
-        <div className="container" style={{ paddingBottom: 96 }}>
-          <HeroChart chartData={chartData} />
-        </div>
-      )}
-    </section>
-  )
-}
 
-function HeroChart({ chartData }) {
-  const last  = chartData[chartData.length - 1].v
-  const first = chartData[0].v
-  const ch    = ((last - first) / first) * 100
-  return (
-    <Card padded={false} elevation={3} style={{ overflow: 'hidden', position: 'relative' }}>
-      <div style={{
-        display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-        padding: '18px 20px', borderBottom: '1px solid var(--line)',
-      }}>
-        <div>
-          <div style={{ fontSize: 11.5, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.12em', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
-            Total Return · 90D
-          </div>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
-            <span className="mono" style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-0.02em' }}>
-              ${last.toLocaleString()}
-            </span>
-            <Badge tone={ch >= 0 ? 'positive' : 'negative'} mono>
-              {ch >= 0 ? '+' : ''}{ch.toFixed(2)}%
-            </Badge>
-          </div>
+        <h1 style={{
+          fontSize: 'clamp(48px, 8vw, 96px)',
+          lineHeight: 1.0, fontWeight: 700, letterSpacing: '-0.04em',
+          marginBottom: 24, textWrap: 'balance',
+        }}>
+          Invest in<br />
+          <span style={{
+            background: 'linear-gradient(135deg, var(--text) 0%, var(--accent) 65%)',
+            WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
+          }}>Innovation.</span>
+        </h1>
+
+        <p style={{
+          fontSize: 19, color: 'var(--text-2)', lineHeight: 1.6,
+          maxWidth: 600, marginInline: 'auto', marginBottom: 36, textWrap: 'pretty',
+        }}>
+          Join the world's most advanced financial ecosystem. Secure, automated, and powered by AI-driven market analysis.
+        </p>
+
+        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>
+            Open Free Account
+          </Button>
+          <Button size="lg" variant="outline" iconLeft={<Icon.chart size={14} />}>
+            View Market Data
+          </Button>
         </div>
-        <div className="hero-chart-periods">
-          {['1D','1W','1M','3M','1Y','All'].map((p, i) => (
-            <button key={p} style={{
-              fontSize: 11, padding: '5px 10px', borderRadius: 7,
-              fontFamily: 'var(--font-mono)',
-              background: i === 3 ? 'var(--surface-2)' : 'transparent',
-              color: i === 3 ? 'var(--text)' : 'var(--text-3)',
-              border: i === 3 ? '1px solid var(--line-2)' : '1px solid transparent',
-            }}>{p}</button>
+      </div>
+
+      {/* Stats bar — glassmorphic card at the bottom */}
+      <div style={{
+        position: 'relative', zIndex: 10,
+        width: '100%', maxWidth: 1240,
+        margin: '0 auto',
+        padding: '0 28px 80px',
+      }}>
+        <div className={visible ? 'reveal visible' : 'reveal'} style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+          background: 'oklch(0.14 0.008 145 / 0.50)',
+          backdropFilter: 'blur(24px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+          borderRadius: 'var(--radius-lg)',
+          border: '1px solid oklch(1 0 0 / 0.10)',
+          padding: '28px 0',
+        }}>
+          {stats.map((s, i) => (
+            <div key={s.label} style={{
+              textAlign: 'center',
+              borderRight: i < stats.length - 1 ? '1px solid var(--line)' : 'none',
+              padding: '0 20px',
+            }}>
+              <div className="mono" style={{ fontSize: 28, fontWeight: 700, letterSpacing: '-0.03em', color: 'var(--text)' }}>{s.value}</div>
+              <div style={{ fontSize: 13, color: 'var(--text-3)', marginTop: 5 }}>{s.label}</div>
+            </div>
           ))}
         </div>
       </div>
-      <div style={{ padding: 12 }}>
-        <AreaChart data={chartData} height={280} />
-      </div>
-      <div className="hero-chart-footer" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px solid var(--line)' }}>
-        {[
-          { k: 'NAV',        v: '$' + last.toLocaleString() },
-          { k: 'Realized',   v: '+$8,420'   },
-          { k: 'Unrealized', v: '+$13,108'  },
-          { k: 'Cash',       v: '$24,610'   },
-        ].map((m, i) => (
-          <div key={m.k} style={{ padding: '14px 16px', borderRight: i < 3 ? '1px solid var(--line)' : 'none' }}>
-            <div style={{ fontSize: 10.5, color: 'var(--text-4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{m.k}</div>
-            <div className="mono" style={{ fontSize: 14, marginTop: 4 }}>{m.v}</div>
-          </div>
-        ))}
-      </div>
-    </Card>
+    </section>
   )
 }
 
@@ -304,254 +267,192 @@ export function TrustStrip() {
   )
 }
 
-/* ── Features (bento grid) ────────────────────────── */
+/* ── Features (2×2 image card grid) ──────────────── */
 export function Features() {
   const [ref, visible] = useReveal()
 
-  const imageCards = [
+  const features = [
     {
-      img: '/feature-1.avif',
-      bg: 'linear-gradient(135deg, oklch(0.22 0.06 200) 0%, oklch(0.14 0.04 220) 100%)',
-      icon: <Icon.shieldCheck size={18} />,
+      icon: <Icon.shieldCheck size={20} />,
       title: 'Institutional Custody',
       desc: 'Client funds held in fully segregated accounts at tier-1 custodian banks. SIPC-insured up to $500,000.',
+      img: '/feature-1.avif',
     },
     {
+      icon: <Icon.lock size={20} />,
+      title: 'Secure Vault',
+      desc: 'Military-grade encryption for all your digital assets and transactions. SOC 2 Type II certified.',
       img: '/feature-2.avif',
-      bg: 'linear-gradient(135deg, oklch(0.22 0.06 160) 0%, oklch(0.14 0.03 180) 100%)',
-      icon: <Icon.globe size={18} />,
+    },
+    {
+      icon: <Icon.globe size={20} />,
       title: 'Global Access',
-      desc: 'Invest from anywhere in the world with 24/7 dedicated support across 30+ languages.',
-    },
-    {
+      desc: 'Trade from anywhere in the world with 24/7 dedicated support in 30+ languages.',
       img: '/feature-3.avif',
-      bg: 'linear-gradient(135deg, oklch(0.20 0.05 240) 0%, oklch(0.13 0.03 260) 100%)',
-      icon: <Icon.scale size={18} />,
-      title: 'Transparent Fees',
-      desc: 'Annual advisory fees from 0.25%. No hidden commissions, no performance penalties, no surprises.',
     },
     {
-      img: '/feature-4.avif',
-      bg: 'linear-gradient(135deg, oklch(0.20 0.06 145) 0%, oklch(0.13 0.04 160) 100%)',
-      icon: <Icon.cpu size={18} />,
+      icon: <Icon.cpu size={20} />,
       title: 'Algorithmic Strategies',
       desc: 'Proprietary algorithms continuously rebalance your portfolio to maximise risk-adjusted returns.',
+      img: '/feature-4.avif',
     },
   ]
 
   return (
-    <section id="platform" style={{ paddingBlock: 'var(--section-pad)' }}>
+    <section id="platform" style={{ paddingBlock: 'var(--section-pad)', background: 'var(--bg-2)' }}>
       <div className="container">
         <SectionHeading
           eyebrow="Platform"
-          title="Everything your portfolio needs, in one place."
-          subtitle="Portfolio management, custody, execution, and reporting — built as one product, not assembled from parts."
+          title="Built for Performance."
+          subtitle="Our platform combines institutional-grade analytics with a user experience designed for the modern investor."
         />
         <div
           ref={ref}
-          className={`bento ${visible ? 'reveal visible' : 'reveal'}`}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(6, 1fr)',
-            gridAutoRows: 'minmax(220px, auto)',
-            gap: 16,
-          }}
+          className={`features-2col ${visible ? 'reveal visible' : 'reveal'}`}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}
         >
-          {/* Large chart card — spans 4 columns, top row */}
-          <Card padded={false} style={{ gridColumn: 'span 4', overflow: 'hidden' }}>
-            <BentoCharting />
-          </Card>
-
-          {/* First image card — spans 2 columns, top row */}
-          <ImageFeatureCard card={imageCards[0]} style={{ gridColumn: 'span 2' }} />
-
-          {/* Remaining 3 image cards — 2 cols each, bottom row */}
-          <ImageFeatureCard card={imageCards[1]} style={{ gridColumn: 'span 2' }} />
-          <ImageFeatureCard card={imageCards[2]} style={{ gridColumn: 'span 2' }} />
-          <ImageFeatureCard card={imageCards[3]} style={{ gridColumn: 'span 2' }} />
+          {features.map((f) => <FeatureCard key={f.title} feature={f} />)}
         </div>
       </div>
     </section>
   )
 }
 
-function ImageFeatureCard({ card, style }) {
-  const [imgLoaded, setImgLoaded] = React.useState(false)
+function FeatureCard({ feature: f }) {
+  const [hovered, setHovered] = React.useState(false)
   return (
-    <div style={{
-      position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden',
-      border: '1px solid var(--line)',
-      background: card.bg,
-      minHeight: 220, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-      ...style,
-    }}>
-      {/* Real image — shown once loaded, sits on top of gradient bg */}
-      <img
-        src={card.img}
-        alt={card.title}
-        onLoad={() => setImgLoaded(true)}
-        onError={() => {}}
-        style={{
-          position: 'absolute', inset: 0, width: '100%', height: '100%',
-          objectFit: 'cover', display: 'block',
-          opacity: imgLoaded ? 1 : 0,
-          transition: 'opacity 400ms ease',
-        }}
-      />
-      {/* Dark gradient overlay — always visible so text stays readable */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(to top, oklch(0.06 0.008 145 / 0.95) 0%, oklch(0.06 0.008 145 / 0.4) 55%, transparent 100%)',
-      }} />
-      {/* Text */}
-      <div style={{ position: 'relative', padding: '20px 22px 22px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 7 }}>
-          <span style={{
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'relative', borderRadius: 'var(--radius-lg)',
+        overflow: 'hidden',
+        background: 'var(--surface)',
+        border: `1px solid ${hovered ? 'var(--accent-line)' : 'var(--line)'}`,
+        transition: 'border-color 280ms ease',
+      }}
+    >
+      {/* Image with hover zoom */}
+      <div style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
+        <img
+          src={f.img}
+          alt={f.title}
+          loading="lazy"
+          style={{
+            width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+            transform: hovered ? 'scale(1.05)' : 'scale(1)',
+            transition: 'transform 500ms ease',
+          }}
+        />
+      </div>
+      {/* Text block */}
+      <div style={{ padding: '22px 24px 26px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+          <div style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            width: 30, height: 30, borderRadius: 8,
-            background: 'oklch(0.72 0.16 145 / 0.25)', color: 'var(--accent)',
-          }}>{card.icon}</span>
-          <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff', margin: 0 }}>{card.title}</h3>
+            width: 40, height: 40, borderRadius: 10,
+            background: 'var(--accent-soft)', color: 'var(--accent)', flexShrink: 0,
+          }}>{f.icon}</div>
+          <h3 style={{ fontSize: 18, fontWeight: 600, color: 'var(--text)', margin: 0 }}>{f.title}</h3>
         </div>
-        <p style={{ fontSize: 13, color: 'oklch(0.82 0.02 145)', lineHeight: 1.55, margin: 0 }}>
-          {card.desc}
-        </p>
+        <p style={{ fontSize: 14, color: 'var(--text-2)', lineHeight: 1.65, margin: 0 }}>{f.desc}</p>
       </div>
     </div>
   )
 }
 
-function BentoCharting() {
-  const candles = React.useMemo(() => {
-    const arr = []; let p = 148000
-    for (let i = 0; i < 40; i++) {
-      const o = p
-      const c = o + (Math.random() - 0.42) * 900
-      const h = Math.max(o, c) + Math.random() * 300
-      const l = Math.min(o, c) - Math.random() * 300
-      arr.push({ o, c, h, l }); p = c
-    }
-    return arr
-  }, [])
+/* ── WhyInvest ────────────────────────────────────── */
+export function WhyInvest({ onAuthOpen }) {
+  const [ref, visible] = useReveal()
+
+  const benefits = [
+    {
+      icon: <Icon.shieldCheck size={24} />,
+      title: 'Your money is always protected',
+      desc: 'Cash balances are SIPC-insured up to $500,000. All investments held in fully segregated custodian accounts at tier-1 banks.',
+    },
+    {
+      icon: <Icon.activity size={24} />,
+      title: 'Returns that work for you',
+      desc: 'Our managed portfolios have delivered an average 18.7% return over 3 years — outperforming traditional savings accounts by 10×.',
+    },
+    {
+      icon: <Icon.globe size={24} />,
+      title: 'Start with any amount',
+      desc: 'Open an account with as little as $500. No hidden fees, no paperwork — just a clear path to growing your wealth from day one.',
+    },
+    {
+      icon: <Icon.user size={24} />,
+      title: 'Expert support, always on',
+      desc: 'A dedicated concierge team available 24/7. Real humans, not chatbots — ready to guide every step of your investment journey.',
+    },
+    {
+      icon: <Icon.lock size={24} />,
+      title: 'Bank-grade security',
+      desc: 'SOC 2 Type II certified. Two-factor authentication, 256-bit encryption, and continuous fraud monitoring keep your account safe.',
+    },
+    {
+      icon: <Icon.scale size={24} />,
+      title: 'Transparent, honest fees',
+      desc: 'Advisory fees from just 0.25% per year. No performance penalties, no hidden commissions, no surprises on your statement.',
+    },
+  ]
+
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--line)' }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-            <Badge tone="default" mono>BALANCED PORTFOLIO</Badge>
-            <Badge tone="positive" dot mono>LIVE</Badge>
+    <section style={{ paddingBlock: 'var(--section-pad)' }}>
+      <div className="container">
+        <SectionHeading
+          eyebrow="Why Tesla"
+          title="Your money should work as hard as you do."
+          subtitle="We built Tesla for people who want real returns without the complexity. Simple to start, powerful behind the scenes."
+        />
+        <div
+          ref={ref}
+          className={`why-grid ${visible ? 'reveal visible' : 'reveal'}`}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}
+        >
+          {benefits.map((b) => (
+            <div key={b.title} style={{
+              padding: '28px 26px 30px',
+              borderRadius: 'var(--radius-lg)',
+              background: 'var(--surface)',
+              border: '1px solid var(--line)',
+              display: 'flex', flexDirection: 'column', gap: 14,
+            }}>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: 48, height: 48, borderRadius: 12,
+                background: 'var(--accent-soft)', color: 'var(--accent)', flexShrink: 0,
+              }}>{b.icon}</div>
+              <div>
+                <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, lineHeight: 1.3 }}>{b.title}</h3>
+                <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.65 }}>{b.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{
+          marginTop: 48, padding: '32px 36px',
+          borderRadius: 'var(--radius-lg)',
+          background: 'var(--bg-2)',
+          border: '1px solid var(--accent-line)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24,
+        }}>
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 6 }}>
+              Join 5,200+ investors already growing with Tesla.
+            </div>
+            <p style={{ fontSize: 14, color: 'var(--text-2)' }}>
+              Open a free account in under 2 minutes. No minimum balance required.
+            </p>
           </div>
-          <div className="mono" style={{ fontSize: 22, fontWeight: 600, letterSpacing: '-0.02em' }}>$148,240.00</div>
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ fontSize: 11, color: 'var(--text-3)' }}>Performance analytics</div>
-          <div style={{ fontSize: 14, fontWeight: 500, marginTop: 4 }}>Real-time · Multi-asset view</div>
+          <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>
+            Open Free Account
+          </Button>
         </div>
       </div>
-      <div style={{ padding: 12, flex: 1 }}>
-        <Candlestick candles={candles} height={170} />
-      </div>
-      <div style={{ display: 'flex', gap: 8, padding: '12px 20px', borderTop: '1px solid var(--line)', flexWrap: 'wrap' }}>
-        {['Equities','Bonds','Real Estate','Alternatives','Cash'].map((t) => (
-          <span key={t} className="mono" style={{
-            fontSize: 11, padding: '4px 8px', borderRadius: 6,
-            background: 'var(--bg-2)', border: '1px solid var(--line)', color: 'var(--text-2)',
-          }}>{t}</span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function BentoVault() {
-  return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 16 }}>
-      <div>
-        <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 9, background: 'var(--accent-soft)', color: 'var(--accent)', marginBottom: 14 }}>
-          <Icon.shieldCheck size={18} />
-        </div>
-        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Institutional-grade custody</h3>
-        <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.55 }}>
-          Client funds held in fully segregated accounts at tier-1 custodian banks. SIPC-insured up to $500,000.
-        </p>
-      </div>
-      <div style={{ display: 'flex', gap: 6 }}>
-        {[1,2,3,4,5,6,7].map((i) => (
-          <div key={i} style={{
-            flex: 1, height: 4, borderRadius: 999,
-            background: i <= 6 ? 'var(--accent)' : 'var(--surface-2)',
-            opacity: i <= 6 ? 0.9 - (6 - i) * 0.1 : 1,
-          }} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function BentoGlobal() {
-  return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-      <div>
-        <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 9, background: 'var(--accent-soft)', color: 'var(--accent)', marginBottom: 14 }}>
-          <Icon.globe size={18} />
-        </div>
-        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Global by default</h3>
-        <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.55 }}>
-          Operate in 120+ countries with localized routing, 30+ languages, and round-the-clock concierge desks in NYC, London, Singapore.
-        </p>
-      </div>
-      <div style={{ display: 'flex', gap: 4, marginTop: 12 }}>
-        {['NYC','LON','SGP','TYO','FRA','SYD'].map((c) => (
-          <span key={c} className="mono" style={{
-            fontSize: 10, padding: '3px 7px', borderRadius: 5,
-            background: 'var(--bg-2)', border: '1px solid var(--line)', color: 'var(--text-3)',
-          }}>{c}</span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function BentoFees() {
-  return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-      <div>
-        <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 9, background: 'var(--accent-soft)', color: 'var(--accent)', marginBottom: 14 }}>
-          <Icon.scale size={18} />
-        </div>
-        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Transparent fee structure</h3>
-        <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.55 }}>
-          Annual advisory fees from 0.25%. No hidden commissions, no performance penalties, no surprise charges.
-        </p>
-      </div>
-      <div className="mono" style={{ fontSize: 11, color: 'var(--text-4)', marginTop: 12 }}>
-        Equities &middot; Bonds &middot; Real Estate &middot; Alternatives &middot; Cash
-      </div>
-    </div>
-  )
-}
-
-function BentoAPI() {
-  return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-      <div>
-        <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, borderRadius: 9, background: 'var(--accent-soft)', color: 'var(--accent)', marginBottom: 14 }}>
-          <Icon.cpu size={18} />
-        </div>
-        <h3 style={{ fontSize: 18, marginBottom: 8 }}>Algorithmic strategies</h3>
-        <p style={{ fontSize: 13.5, color: 'var(--text-2)', lineHeight: 1.55 }}>
-          Proprietary algorithms continuously rebalance your portfolio to maximise risk-adjusted returns.
-        </p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
-        {['Auto-rebalancing', 'Tax-loss harvesting', 'Risk management'].map((item) => (
-          <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 12, color: 'var(--text-3)' }}>
-            <span style={{ color: 'var(--accent)', flexShrink: 0 }}><Icon.check size={12} /></span>
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
+    </section>
   )
 }
 
@@ -702,33 +603,33 @@ export function Pricing({ onAuthOpen }) {
           </p>
         </div>
         <div ref={ref} className={`pricing-grid ${visible ? 'reveal visible' : 'reveal'}`}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, isolation: 'isolate' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, paddingTop: 20 }}
         >
           {tiers.map((t) => (
             <div key={t.name} style={{
               position: 'relative',
               borderRadius: 16,
-              padding: t.popular ? '0 0 28px' : '28px 28px',
-              background: 'var(--surface)',
+              padding: '32px 28px 28px',
+              background: t.popular ? 'oklch(0.78 0.15 145 / 0.06)' : 'var(--surface)',
               border: `1.5px solid ${t.popular ? 'var(--accent)' : 'var(--line)'}`,
-              boxShadow: t.popular ? '0 0 32px oklch(0.72 0.16 145 / 0.18)' : 'none',
+              boxShadow: t.popular ? '0 0 40px oklch(0.72 0.16 145 / 0.18)' : 'none',
               display: 'flex', flexDirection: 'column', gap: 0,
-              overflow: 'hidden',
+              overflow: 'visible',
+              marginTop: t.popular ? 0 : 0,
             }}>
               {t.popular && (
-                <div style={{
-                  background: 'var(--accent)',
-                  padding: '10px 0',
-                  textAlign: 'center',
-                  fontSize: 12, fontWeight: 600, letterSpacing: '0.12em',
-                  textTransform: 'uppercase', color: '#fff',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                  marginBottom: 28,
-                }}>
-                  <Icon.star size={13} /> Most Popular
+                <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 5,
+                    background: 'var(--accent)', color: 'oklch(0.10 0.008 145)',
+                    fontSize: 11, fontWeight: 700, padding: '5px 14px', borderRadius: 999,
+                    textTransform: 'uppercase', letterSpacing: '0.1em', whiteSpace: 'nowrap',
+                  }}>
+                    <Icon.star size={11} /> Most Popular
+                  </span>
                 </div>
               )}
-              <div style={{ padding: t.popular ? '0 28px' : '0', flex: 1 }}>
+              <div style={{ flex: 1 }}>
                 <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16 }}>{t.name}</h3>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 28 }}>
                   <span style={{
@@ -760,16 +661,16 @@ export function Pricing({ onAuthOpen }) {
                   onClick={() => onAuthOpen('signup')}
                   style={{
                     width: '100%', padding: '14px 0',
-                    borderRadius: 10, fontSize: 13, fontWeight: 600,
+                    borderRadius: 999, fontSize: 13, fontWeight: 600,
                     letterSpacing: '0.06em', textTransform: 'uppercase',
                     cursor: 'pointer', transition: 'all 180ms ease',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     background: t.popular ? 'var(--accent)' : 'transparent',
-                    color: t.popular ? '#fff' : 'var(--accent)',
+                    color: t.popular ? 'oklch(0.10 0.008 145)' : 'var(--accent)',
                     border: `1.5px solid var(--accent)`,
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = t.popular ? 'oklch(0.62 0.16 145)' : 'var(--accent-soft)'
+                    e.currentTarget.style.background = t.popular ? 'oklch(0.68 0.17 145)' : 'var(--accent-soft)'
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = t.popular ? 'var(--accent)' : 'transparent'
@@ -1210,33 +1111,37 @@ function DashPortfolio() {
 export function CTA({ onAuthOpen }) {
   const [ref, visible] = useReveal()
   return (
-    <section style={{ paddingBlock: 'calc(var(--section-pad) * 0.8)' }}>
-      <div className="container">
-        <Card padded={false} elevation={3} style={{
-          position: 'relative', overflow: 'hidden',
-          padding: 'clamp(40px, 6vw, 72px)',
-          textAlign: 'center',
-          background: 'radial-gradient(circle at 50% 0%, var(--accent-soft), var(--surface) 60%)',
-          borderColor: 'var(--accent-line)',
+    <section style={{ position: 'relative', paddingBlock: 'var(--section-pad)', overflow: 'hidden', background: 'var(--bg-2)' }}>
+      {/* Grid pattern */}
+      <div className="grid-bg" aria-hidden="true" style={{ position: 'absolute', inset: 0, opacity: 0.25 }} />
+      {/* Green glow */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+        width: 900, height: 500, pointerEvents: 'none',
+        background: 'radial-gradient(ellipse at center, oklch(0.78 0.15 145 / 0.14), transparent 70%)',
+        filter: 'blur(40px)',
+      }} />
+
+      <div
+        ref={ref}
+        className={visible ? 'reveal visible' : 'reveal'}
+        style={{ position: 'relative', zIndex: 10, maxWidth: 680, margin: '0 auto', textAlign: 'center', padding: '0 24px' }}
+      >
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 700,
+          letterSpacing: '-0.035em', marginBottom: 20, textWrap: 'balance',
         }}>
-          <div className="grid-bg" aria-hidden="true" style={{
-            position: 'absolute', inset: 0, opacity: 0.4,
-            maskImage: 'radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%)',
-          }} />
-          <div ref={ref} className={`${visible ? 'reveal visible' : 'reveal'}`} style={{ position: 'relative' }}>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 600, letterSpacing: '-0.025em', marginBottom: 14, textWrap: 'balance' }}>
-              Start building wealth today.
-            </h2>
-            <p style={{ fontSize: 17, color: 'var(--text-2)', marginBottom: 28, maxWidth: 540, marginInline: 'auto' }}>
-              No minimums. Institutional-grade custody. Your portfolio, fully protected from day one.
-            </p>
-            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>Open an account</Button>
-              <Button size="lg" variant="outline">Read the security paper</Button>
-            </div>
-          </div>
-        </Card>
+          Ready to start your journey?
+        </h2>
+        <p style={{
+          fontSize: 18, color: 'var(--text-2)', lineHeight: 1.6,
+          marginBottom: 36, maxWidth: 520, marginInline: 'auto',
+        }}>
+          Join thousands of investors maximising their potential with institutional-grade financial tools.
+        </p>
+        <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>
+          Get Started Now
+        </Button>
       </div>
     </section>
   )

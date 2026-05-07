@@ -140,30 +140,17 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 
 /* ── Responsive — Hero ─────────────────────────────── */
-@media (max-width: 760px) {
-  .hero-grid { grid-template-columns: 1fr !important; }
-  .hero-p    { font-size: 16px !important; }
-  .hero-stats { gap: 16px 28px !important; }
-}
-
-/* HeroChart: time-period buttons scroll horizontally */
-.hero-chart-periods {
-  display: flex; gap: 4px;
-  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-}
-.hero-chart-periods::-webkit-scrollbar { display: none; }
-
-/* HeroChart: 4-col stats → 2×2 on small screens */
-@media (max-width: 560px) {
-  .hero-chart-footer { grid-template-columns: 1fr 1fr !important; }
-  .hero-chart-footer > div { border-right: none !important; border-bottom: 1px solid var(--line); }
-  .hero-chart-footer > div:nth-child(odd)      { border-right: 1px solid var(--line) !important; }
-  .hero-chart-footer > div:nth-last-child(-n+2) { border-bottom: none; }
+@media (max-width: 640px) {
+  .hero-stats-bar { grid-template-columns: 1fr 1fr !important; }
+  .hero-stats-bar > div { border-right: none !important; border-bottom: 1px solid var(--line); }
+  .hero-stats-bar > div:nth-child(odd)       { border-right: 1px solid var(--line) !important; }
+  .hero-stats-bar > div:nth-last-child(-n+2) { border-bottom: none; }
 }
 
 /* ── Responsive — Sections ─────────────────────────── */
 @media (max-width: 980px) {
-  .bento > *       { grid-column: span 6 !important; }
+  .features-2col   { grid-template-columns: 1fr !important; }
+  .why-grid        { grid-template-columns: 1fr 1fr !important; }
   .sim-grid        { grid-template-columns: 1fr !important; }
   .pricing-grid    { grid-template-columns: 1fr !important; }
   .docs-grid       { grid-template-columns: 1fr !important; }
@@ -177,6 +164,7 @@ input, textarea, select { font: inherit; color: inherit; }
   .page-market-live { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 640px) {
+  .why-grid        { grid-template-columns: 1fr !important; }
   .page-3col       { grid-template-columns: 1fr !important; }
   .page-4col       { grid-template-columns: 1fr 1fr !important; }
   .steps-grid      { grid-template-columns: 1fr !important; }
