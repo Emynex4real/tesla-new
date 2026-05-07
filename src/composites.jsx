@@ -186,16 +186,16 @@ export function Candlestick({ candles, height = 180 }) {
 /* ── MarketTicker ─────────────────────────────────── */
 export function MarketTicker() {
   const seedTickers = React.useMemo(() => ([
-    { sym: 'BTC',   name: 'Bitcoin',    price: 67841.20, ch:  1.42 },
-    { sym: 'ETH',   name: 'Ethereum',   price: 3520.18,  ch: -0.84 },
-    { sym: 'SOL',   name: 'Solana',     price: 178.62,   ch:  3.21 },
-    { sym: 'AAPL',  name: 'Apple',      price: 224.31,   ch:  0.42 },
-    { sym: 'NVDA',  name: 'NVIDIA',     price: 945.07,   ch:  2.18 },
-    { sym: 'GOOGL', name: 'Alphabet',   price: 178.94,   ch: -0.31 },
-    { sym: 'TSLA',  name: 'Tesla Inc.', price: 248.50,   ch:  1.07 },
-    { sym: 'AVAX',  name: 'Avalanche',  price: 38.21,    ch: -1.62 },
-    { sym: 'MSFT',  name: 'Microsoft',  price: 432.15,   ch:  0.55 },
-    { sym: 'LINK',  name: 'Chainlink',  price: 16.84,    ch:  4.10 },
+    { sym: 'AAPL',  name: 'Apple',       price: 224.31,  ch:  0.42 },
+    { sym: 'NVDA',  name: 'NVIDIA',      price: 945.07,  ch:  2.18 },
+    { sym: 'GOOGL', name: 'Alphabet',    price: 178.94,  ch: -0.31 },
+    { sym: 'TSLA',  name: 'Tesla Inc.',  price: 248.50,  ch:  1.07 },
+    { sym: 'MSFT',  name: 'Microsoft',   price: 432.15,  ch:  0.55 },
+    { sym: 'AMZN',  name: 'Amazon',      price: 195.42,  ch:  1.04 },
+    { sym: 'SPY',   name: 'S&P 500 ETF', price: 538.24,  ch:  0.62 },
+    { sym: 'BRK.B', name: 'Berkshire',   price: 406.18,  ch:  0.18 },
+    { sym: 'JPM',   name: 'JPMorgan',    price: 198.74,  ch:  0.73 },
+    { sym: 'BND',   name: 'Bond ETF',    price: 73.51,   ch: -0.12 },
   ]), [])
 
   const [tickers, setTickers] = React.useState(seedTickers)

@@ -201,7 +201,7 @@ function SignupFlow({ onClose }) {
           {[
             { v: 'bank',   l: 'Bank transfer (ACH)',     s: 'Free · 1–2 business days' },
             { v: 'card',   l: 'Debit card',              s: 'Instant · 1.5% fee' },
-            { v: 'wallet', l: 'Connect a crypto wallet', s: 'Sign with Phantom, Rainbow, or WalletConnect' },
+            { v: 'wire',   l: 'International wire',       s: 'SWIFT · 1–3 business days · for large deposits' },
             { v: 'wire',   l: 'Wire transfer',           s: 'Same-day · for deposits over $50K' },
           ].map((f) => (
             <button

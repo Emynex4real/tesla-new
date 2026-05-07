@@ -21,10 +21,10 @@ const assetClasses = [
   },
   {
     icon: <Icon.bolt size={22} />,
-    name: 'Crypto',
-    badge: 'Institutional custody',
-    desc: 'Trade major digital assets 24/7 with low fees, multi-sig cold storage, and real-time order-book depth.',
-    features: ['50+ coins & tokens', '0.20% taker fee', 'Cold-storage custody', 'On-chain tracking'],
+    name: 'Real Estate',
+    badge: 'Passive income',
+    desc: 'Access institutional-grade real estate investment trusts (REITs) and earn passive rental income without owning property.',
+    features: ['Diversified REIT portfolios', 'Quarterly dividend income', 'Low minimum investment', 'Liquid & tradeable'],
   },
   {
     icon: <Icon.trending size={22} />,
@@ -44,7 +44,7 @@ const assetClasses = [
     icon: <Icon.activity size={22} />,
     name: 'Futures',
     badge: 'One account',
-    desc: 'Trade commodity and financial futures in the same account as your stocks and crypto — no separate sign-up.',
+    desc: 'Trade commodity and financial futures in the same account as your stocks and bonds — no separate sign-up.',
     features: ['Index & commodity futures', 'Real-time margin view', 'Overnight positions', 'Rollover alerts'],
   },
 ]
@@ -81,7 +81,7 @@ export default function MarketsPage({ onAuthOpen }) {
       <PageHero
         eyebrow="Markets"
         title="Every market. One account."
-        subtitle="Stocks, ETFs, crypto, options, FX, and futures — all accessible from a single account with institutional-grade execution and custody."
+        subtitle="Stocks, ETFs, real estate, options, FX, and futures — all accessible from a single account with institutional-grade execution and custody."
         cta={
           <Button size="lg" onClick={() => onAuthOpen('signup')} iconRight={<Icon.arrow size={14} />}>
             Start investing
@@ -153,11 +153,11 @@ export default function MarketsPage({ onAuthOpen }) {
             </Card>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[
-                { sym: 'BTC',  name: 'Bitcoin',    price: '$67,841', ch: '+1.42%', pos: true  },
-                { sym: 'NVDA', name: 'NVIDIA',     price: '$875.20', ch: '+2.18%', pos: true  },
-                { sym: 'ETH',  name: 'Ethereum',   price: '$3,520',  ch: '-0.84%', pos: false },
-                { sym: 'TSLA', name: 'Tesla Inc.', price: '$248.60', ch: '+0.92%', pos: true  },
-                { sym: 'SOL',  name: 'Solana',     price: '$141.00', ch: '+3.10%', pos: true  },
+                { sym: 'AAPL', name: 'Apple Inc.',      price: '$224.31', ch: '+0.42%', pos: true  },
+                { sym: 'NVDA', name: 'NVIDIA',          price: '$945.07', ch: '+2.18%', pos: true  },
+                { sym: 'MSFT', name: 'Microsoft',       price: '$432.15', ch: '+0.55%', pos: true  },
+                { sym: 'TSLA', name: 'Tesla Inc.',      price: '$248.60', ch: '+0.92%', pos: true  },
+                { sym: 'SPY',  name: 'S&P 500 ETF',    price: '$538.24', ch: '-0.18%', pos: false },
               ].map((m) => (
                 <Card key={m.sym} padded={false} interactive style={{ padding: '14px 18px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

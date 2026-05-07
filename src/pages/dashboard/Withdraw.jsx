@@ -136,7 +136,7 @@ function WithdrawForm({ method, onClose }) {
         }}>
           <AlertCircle size={15} style={{ color: 'var(--neg)', flexShrink: 0, marginTop: 1 }} />
           <p style={{ fontSize: 12, color: 'var(--text-3)', lineHeight: 1.55, margin: 0 }}>
-            Please ensure withdrawal details are correct. Transactions on the blockchain cannot be reversed.
+            Please ensure withdrawal details are correct. Bank transfers can take 1–3 business days and cannot be recalled once processed.
           </p>
         </div>
       </div>
