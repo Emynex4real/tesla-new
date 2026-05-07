@@ -604,14 +604,14 @@ export function Pricing({ onAuthOpen }) {
           title="Pricing that pays for itself."
           subtitle="No surprise fees, no payment-for-order-flow, no minimums. Pick a tier — change it any time."
         />
-        <div ref={ref} className={`pricing-grid ${visible ? 'reveal visible' : 'reveal'}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        <div ref={ref} className={`pricing-grid ${visible ? 'reveal visible' : 'reveal'}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, isolation: 'isolate' }}>
           {tiers.map((t) => (
             <Card key={t.name} padded={false} elevation={t.popular ? 3 : 1}
-              style={{ position: 'relative', borderColor: t.popular ? 'var(--accent-line)' : 'var(--line)', ...(t.popular ? { boxShadow: 'var(--shadow-pop), var(--glow)' } : {}) }}
+              style={{ position: 'relative', overflow: 'hidden', borderColor: t.popular ? 'var(--accent-line)' : 'var(--line)', ...(t.popular ? { boxShadow: 'var(--shadow-pop), var(--glow)' } : {}) }}
             >
               {t.popular && (
                 <div style={{
-                  position: 'absolute', top: -1, left: -1, right: -1, height: 28,
+                  position: 'absolute', top: 0, left: 0, right: 0, height: 28,
                   background: 'linear-gradient(90deg, transparent, var(--accent-soft), transparent)',
                   borderTopLeftRadius: 'var(--radius-lg)', borderTopRightRadius: 'var(--radius-lg)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
