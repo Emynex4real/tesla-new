@@ -13,7 +13,7 @@ function MethodCard({ title, limit, charge, time, icon: Icon, active, onSelect }
         background: active ? 'var(--surface-2)' : 'var(--surface)',
         cursor: 'pointer',
         transition: 'border-color 200ms ease, box-shadow 200ms ease, background 200ms ease',
-        boxShadow: active ? '0 0 30px oklch(0.78 0.15 var(--accent-h) / 0.2)' : 'none',
+        boxShadow: active ? '0 0 30px oklch(0.78 0.15 145 / 0.2)' : 'none',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -130,8 +130,8 @@ export default function Deposit() {
         <p style={{ fontSize: 13.5, color: 'var(--text-3)' }}>Securely add capital using our supported payment gateways.</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 24, alignItems: 'start' }}>
-        <div className="db-grid-2" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
+        <div className="db-grid-2">
           {methods.map(m => (
             <MethodCard
               key={m.id} {...m}

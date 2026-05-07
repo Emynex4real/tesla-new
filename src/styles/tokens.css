@@ -5,13 +5,13 @@
 /* Tesla — design tokens */
 
 :root {
-  /* Surfaces (warm-dark) */
-  --bg:        oklch(0.14 0.008 38);
-  --bg-2:      oklch(0.11 0.008 38);
-  --surface:   oklch(0.19 0.010 38);
-  --surface-2: oklch(0.23 0.012 38);
-  --line:      oklch(0.30 0.010 38 / 0.55);
-  --line-2:    oklch(0.36 0.012 38 / 0.45);
+  /* Surfaces (cool-dark) */
+  --bg:        oklch(0.14 0.008 145);
+  --bg-2:      oklch(0.11 0.008 145);
+  --surface:   oklch(0.19 0.010 145);
+  --surface-2: oklch(0.23 0.012 145);
+  --line:      oklch(0.30 0.010 145 / 0.55);
+  --line-2:    oklch(0.36 0.012 145 / 0.45);
 
   /* Text */
   --text:    oklch(0.97 0.004 52);
@@ -19,12 +19,12 @@
   --text-3:  oklch(0.61 0.014 52);
   --text-4:  oklch(0.47 0.014 52);
 
-  /* Accent (gold, single role at a time) */
-  --accent-h: 52;
-  --accent:   oklch(0.78 0.15 var(--accent-h));
-  --accent-2: oklch(0.68 0.17 var(--accent-h));
-  --accent-soft: oklch(0.78 0.15 var(--accent-h) / 0.14);
-  --accent-line: oklch(0.78 0.15 var(--accent-h) / 0.32);
+  /* Accent (green) */
+  --accent-h: 145;
+  --accent:      oklch(0.78 0.15 145);
+  --accent-2:    oklch(0.68 0.17 145);
+  --accent-soft: oklch(0.78 0.15 145 / 0.14);
+  --accent-line: oklch(0.78 0.15 145 / 0.32);
 
   /* Semantic */
   --pos: oklch(0.78 0.16 155);
@@ -38,7 +38,7 @@
 
   /* Effects */
   --glow-strength: 0.35;
-  --glow: 0 0 60px oklch(0.72 0.16 var(--accent-h) / var(--glow-strength));
+  --glow: 0 0 60px oklch(0.72 0.16 145 / var(--glow-strength));
   --shadow-1: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 1px 2px oklch(0 0 0 / 0.4);
   --shadow-2: 0 1px 0 oklch(1 0 0 / 0.05) inset, 0 8px 24px oklch(0 0 0 / 0.4);
   --shadow-pop: 0 1px 0 oklch(1 0 0 / 0.06) inset, 0 24px 60px oklch(0 0 0 / 0.55);

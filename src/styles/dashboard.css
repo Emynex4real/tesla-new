@@ -82,7 +82,7 @@
 .db-nav-item.active {
   background: var(--accent);
   color: var(--bg);
-  box-shadow: 0 0 28px oklch(0.78 0.15 var(--accent-h) / 0.3);
+  box-shadow: 0 0 28px oklch(0.78 0.15 145 / 0.3);
 }
 .db-nav-item.active svg { color: var(--bg); }
 
@@ -135,7 +135,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  background: oklch(0.14 0.008 38 / 0.85);
+  background: oklch(0.14 0.008 145 / 0.85);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -224,7 +224,7 @@
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
 }
 .db-table {
   width: 100%;
@@ -313,6 +313,7 @@
 @media (max-width: 768px) {
   .hide-mobile { display: none !important; }
   .db-content { padding: 16px 14px 40px; }
+  .db-table { min-width: 560px; }
 }
 
 /* Balance card responsive ─ stack on narrow screens */

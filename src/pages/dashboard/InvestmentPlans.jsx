@@ -17,7 +17,7 @@ function PlanCard({ title, priceRange, features, icon: Icon, badge, delay }) {
         position: 'relative',
         overflow: 'hidden',
         borderColor: hovered ? 'var(--accent-line)' : 'var(--line)',
-        boxShadow: hovered ? '0 0 40px oklch(0.78 0.15 var(--accent-h) / 0.15)' : 'none',
+        boxShadow: hovered ? '0 0 40px oklch(0.78 0.15 145 / 0.15)' : 'none',
         transition: 'border-color 250ms ease, box-shadow 250ms ease',
       }}
     >

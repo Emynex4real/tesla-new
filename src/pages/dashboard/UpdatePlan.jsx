@@ -45,7 +45,7 @@ function PlanCard({ title, priceDisplay, badge, icon: Icon, features, affiliateL
         position: 'relative',
         overflow: 'hidden',
         borderColor: hovered ? 'var(--accent-line)' : 'var(--line)',
-        boxShadow: hovered ? '0 0 50px oklch(0.78 0.15 var(--accent-h) / 0.18)' : 'none',
+        boxShadow: hovered ? '0 0 50px oklch(0.78 0.15 145 / 0.18)' : 'none',
         transition: 'border-color 300ms ease, box-shadow 300ms ease',
       }}
     >

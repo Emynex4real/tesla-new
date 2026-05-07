@@ -17,11 +17,11 @@ export default function TransferMoney() {
 
   return (
     <div className="db-content">
-      <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 items-start">
 
         {/* Left: Transfer form */}
         <div className="db-card db-rise" style={{
-          flex: 1, minWidth: 320, padding: 30, position: 'relative', overflow: 'hidden',
+          padding: 30, position: 'relative', overflow: 'hidden',
         }}>
           {/* Glow */}
           <div style={{
@@ -138,7 +138,7 @@ export default function TransferMoney() {
 
             <div style={{
               display: 'flex', alignItems: 'flex-start', gap: 10,
-              background: 'oklch(0.78 0.15 var(--accent-h) / 0.06)',
+              background: 'oklch(0.78 0.15 145 / 0.06)',
               border: '1px solid var(--accent-line)',
               borderRadius: 'var(--radius-sm)', padding: '10px 12px',
             }}>
@@ -149,7 +149,7 @@ export default function TransferMoney() {
             </div>
 
             <button className="db-btn db-btn-primary db-btn-lg" style={{
-              boxShadow: '0 8px 30px oklch(0.78 0.15 var(--accent-h) / 0.25)',
+              boxShadow: '0 8px 30px oklch(0.78 0.15 145 / 0.25)',
             }}>
               Transfer Funds <Send size={16} />
             </button>
@@ -157,7 +157,7 @@ export default function TransferMoney() {
         </div>
 
         {/* Right: Info panel */}
-        <div style={{ width: 300, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div className="db-card db-rise db-rise-2" style={{ padding: 22 }}>
             <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Transfer Limits</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -185,7 +185,7 @@ export default function TransferMoney() {
             </div>
             <div style={{ position: 'relative' }}>
               <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--bg)', marginBottom: 8 }}>Instant Transfer</h3>
-              <p style={{ fontSize: 13, color: 'oklch(0.14 0.008 38 / 0.75)', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: 13, color: 'oklch(0.14 0.008 145 / 0.75)', lineHeight: 1.6, margin: 0 }}>
                 Zero delay on internal transfers. Funds are credited to the receiver's wallet immediately upon confirmation.
               </p>
             </div>

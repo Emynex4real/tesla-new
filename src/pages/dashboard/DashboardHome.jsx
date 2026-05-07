@@ -32,7 +32,6 @@ function StatCard({ title, value, icon: Icon, accentColor, delay }) {
 function BalanceCard({ setView }) {
   return (
     <div className="db-card db-rise" style={{
-      gridColumn: 'span 2',
       padding: 32,
       background: 'linear-gradient(135deg, var(--surface) 0%, var(--bg-2) 100%)',
       position: 'relative', overflow: 'hidden',
@@ -56,7 +55,7 @@ function BalanceCard({ setView }) {
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--pos)', display: 'inline-block', animation: 'pulse-dot 2s ease infinite' }} />
           Total Balance
         </p>
-        <h2 style={{ fontSize: 52, fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--text)', lineHeight: 1, marginBottom: 28 }}>
+        <h2 style={{ fontSize: 'clamp(32px, 10vw, 52px)', fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--text)', lineHeight: 1, marginBottom: 28 }}>
           <span style={{ fontSize: 28, color: 'var(--text-3)', verticalAlign: 'super', marginRight: 6 }}>$</span>
           0.00
         </h2>
@@ -118,18 +117,19 @@ export default function DashboardHome({ setView }) {
   return (
     <div className="db-content">
       {/* Row 1: balance card (wide) + 2 quick stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20, marginBottom: 20 }}>
-        <BalanceCard setView={setView} />
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
+        <div className="lg:col-span-2">
+          <BalanceCard setView={setView} />
+        </div>
+        <div className="flex flex-col gap-5">
           <StatCard title="Total Deposit"  value="$0.00" icon={Download} accentColor="var(--pos)"    delay={1} />
-          <StatCard title="Total Withdraw" value="$0.00" icon={Upload}   accentColor="oklch(0.75 0.18 50)" delay={2} />
+          <StatCard title="Total Withdraw" value="$0.00" icon={Upload}   accentColor="oklch(0.75 0.18 145)" delay={2} />
         </div>
       </div>
 
       {/* Row 2: 4 secondary stats */}
       <div className="db-grid-4" style={{ marginBottom: 20 }}>
-        <StatCard title="Total Invested"    value="$0.00" icon={TrendingUp} accentColor="oklch(0.75 0.18 50)"  delay={3} />
+        <StatCard title="Total Invested"    value="$0.00" icon={TrendingUp} accentColor="oklch(0.75 0.18 145)"  delay={3} />
         <StatCard title="Pending Invest"    value="$0.00" icon={Clock}      accentColor="oklch(0.80 0.15 200)" delay={4} />
         <StatCard title="Pending Withdraw"  value="$0.00" icon={Clock}      accentColor="oklch(0.75 0.15 250)" delay={5} />
         <StatCard title="Referral Earnings" value="$0.00" icon={Users}      accentColor="var(--pos)"           delay={6} />

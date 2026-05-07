@@ -151,7 +151,7 @@ export default function TwoFactorAuth() {
                     style={{ textAlign: 'center', fontSize: 22, letterSpacing: '0.4em', padding: '14px 16px' }}
                   />
                 </div>
-                <button className="db-btn db-btn-primary db-btn-lg" style={{ boxShadow: '0 0 30px oklch(0.78 0.15 var(--accent-h) / 0.3)' }}>
+                <button className="db-btn db-btn-primary db-btn-lg" style={{ boxShadow: '0 0 30px oklch(0.78 0.15 145 / 0.3)' }}>
                   Enable 2FA Now
                 </button>
                 <button

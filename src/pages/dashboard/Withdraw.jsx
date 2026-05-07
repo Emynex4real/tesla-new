@@ -13,7 +13,7 @@ function MethodCard({ title, time, fee, icon: Icon, active, onSelect }) {
         background: active ? 'var(--surface-2)' : 'var(--surface)',
         cursor: 'pointer',
         transition: 'border-color 200ms ease, box-shadow 200ms ease, background 200ms ease',
-        boxShadow: active ? '0 0 30px oklch(0.78 0.15 var(--accent-h) / 0.2)' : 'none',
+        boxShadow: active ? '0 0 30px oklch(0.78 0.15 145 / 0.2)' : 'none',
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
@@ -180,7 +180,7 @@ export default function Withdraw() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 24, alignItems: 'start' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
         <div>
           <p style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-4)', marginBottom: 14 }}>
             Select Method

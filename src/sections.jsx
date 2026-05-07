@@ -46,7 +46,7 @@ export function NavBar({ onCmdK, onAuthOpen }) {
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: scrolled ? 'oklch(0.14 0.008 38 / 0.82)' : 'transparent',
+      background: scrolled ? 'oklch(0.14 0.008 145 / 0.82)' : 'transparent',
       backdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
       WebkitBackdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
       borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
@@ -731,7 +731,7 @@ function th(hero) {
 function td(hero) {
   return {
     padding: '14px 20px', fontSize: 13.5, color: 'var(--text-2)',
-    background: hero ? 'oklch(0.72 0.16 var(--accent-h) / 0.05)' : 'transparent',
+    background: hero ? 'oklch(0.72 0.16 145 / 0.05)' : 'transparent',
     borderRight: '1px solid var(--line)',
   }
 }
